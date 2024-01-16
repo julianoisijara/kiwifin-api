@@ -26,14 +26,16 @@ public class Cliente {
 
     }
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idCliente")
-    public Long getidCliente() {
+    @Column(name="ID_CLIENTE")
+    public Long getIdCliente() {
         return idCliente;
     }
 
-    public void setidCliente(Long idCliente) {
+    public void setIdCliente(Long idCliente) {
         this.idCliente = idCliente;
     }
 
