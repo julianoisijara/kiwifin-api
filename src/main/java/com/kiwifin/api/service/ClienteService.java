@@ -2,8 +2,10 @@ package com.kiwifin.api.service;
 
 import com.kiwifin.api.DTO.create.ClienteCreateDTO;
 import com.kiwifin.api.DTO.update.ClienteUpdateDTO;
+import com.kiwifin.api.DTO.view.ClienteViewDTO;
 import com.kiwifin.api.entities.Cliente;
 import com.kiwifin.api.repositories.ClienteRepository;
+import com.kiwifin.api.service.conversor.ClienteConversorService;
 import com.kiwifin.api.service.data.GenericDataService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,11 +13,37 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClienteService extends GenericDataService<Cliente, Long, ClienteRepository> {
 
+    ClienteConversorService conversorService;
+
     private static final Logger logger = LogManager.getLogger(ClienteService.class);
+
+    public ClienteService(ClienteConversorService conversorService) {
+        this.conversorService = conversorService;
+    }
+
+    public ClienteViewDTO incluirCliente(ClienteCreateDTO clienteCreateDTO) {
+        return conversorService.entity2Dto(adicionarCliente(clienteCreateDTO));
+    }
+
+    public ClienteViewDTO atualizarCliente(ClienteUpdateDTO clienteUpdateDTO) {
+        return conversorService.entity2Dto(editarCliente(clienteUpdateDTO));
+    }
+
+    public List<ClienteViewDTO> buscarCliente(Long idCliente, String cpf, String nome) {
+        return conversorService.entityList2DtoList(pesquisarCliente(idCliente, cpf, nome));
+    }
+
+    public List<ClienteViewDTO> buscarTodosClientes() {
+        return conversorService.entityList2DtoList(pesquisarTodosClientes());
+    }
+
+
+
 
     public List<Cliente> pesquisarTodosClientes() {
         try {
@@ -32,10 +60,13 @@ public class ClienteService extends GenericDataService<Cliente, Long, ClienteRep
 
         try {
             if (idCliente != null) {
-                listaCliente.add(repository.findById(idCliente).get());
+                Optional<Cliente> cliente = repository.findById(idCliente);
+                if (cliente.isPresent()) {
+                    listaCliente.add(repository.findById(idCliente).get());
+                }
             }
             if (cpf != null) {
-                listaCliente.add(repository.findByCpfEquals(cpf));
+                listaCliente.addAll(repository.findByCpfEquals(cpf));
             }
             if (nome != null) {
                 listaCliente.addAll(repository.findByNomeContains(nome.toUpperCase()));
@@ -78,48 +109,48 @@ public class ClienteService extends GenericDataService<Cliente, Long, ClienteRep
     
     public Cliente editarCliente(ClienteUpdateDTO clienteDTO) {
         try {
-            Cliente atualizaCliente = findById(clienteDTO.getIdCliente()).get();
+            Optional<Cliente> atualizaCliente = findById(clienteDTO.getIdCliente());
 
-            if (atualizaCliente != null) {
+            if (atualizaCliente.isPresent()) {
 
                 if (clienteDTO.getNome() != null) {
-                    atualizaCliente.setNome(clienteDTO.getNome().toUpperCase());
+                    atualizaCliente.get().setNome(clienteDTO.getNome().toUpperCase());
                 }
                 if (clienteDTO.getEmail() != null) {
-                    atualizaCliente.setEmail(clienteDTO.getEmail());
+                    atualizaCliente.get().setEmail(clienteDTO.getEmail());
                 }
                 if (clienteDTO.getCpf() != null) {
-                    atualizaCliente.setCpf(clienteDTO.getCpf());
+                    atualizaCliente.get().setCpf(clienteDTO.getCpf());
                 }
                 if (clienteDTO.getSenha() != null) {
-                    atualizaCliente.setSenha(clienteDTO.getSenha());
+                    atualizaCliente.get().setSenha(clienteDTO.getSenha());
                 }
                 if (clienteDTO.getDataNascimento() != null) {
-                    atualizaCliente.setDataNascimento(clienteDTO.getDataNascimento());
+                    atualizaCliente.get().setDataNascimento(clienteDTO.getDataNascimento());
                 }
                 if (clienteDTO.getCelular() != null) {
-                    atualizaCliente.setCelular(clienteDTO.getCelular());
+                    atualizaCliente.get().setCelular(clienteDTO.getCelular());
                 }
                 if (clienteDTO.getCep() != null) {
-                    atualizaCliente.setCep(clienteDTO.getCep());
+                    atualizaCliente.get().setCep(clienteDTO.getCep());
                 }
                 if (clienteDTO.getCidade() != null) {
-                    atualizaCliente.setCidade(clienteDTO.getCidade().toUpperCase());
+                    atualizaCliente.get().setCidade(clienteDTO.getCidade().toUpperCase());
                 }
                 if (clienteDTO.getEndereco() != null) {
-                    atualizaCliente.setEndereco(clienteDTO.getEndereco().toUpperCase());
+                    atualizaCliente.get().setEndereco(clienteDTO.getEndereco().toUpperCase());
                 }
                 if (clienteDTO.getUf() != null) {
-                    atualizaCliente.setUf(clienteDTO.getUf().toUpperCase());
+                    atualizaCliente.get().setUf(clienteDTO.getUf().toUpperCase());
                 }
                 if (clienteDTO.getComplemento() != null) {
-                    atualizaCliente.setComplemento(clienteDTO.getComplemento().toUpperCase());
+                    atualizaCliente.get().setComplemento(clienteDTO.getComplemento().toUpperCase());
                 }
 
-                repository.save(atualizaCliente);
+                repository.save(atualizaCliente.get());
             }
 
-            return atualizaCliente;
+            return atualizaCliente.get();
 
         } catch (Exception e) {
             logger.error("Erro ao atualizar o cliente:" + clienteDTO.getIdCliente() + " ERRO -> " + e.getMessage());

@@ -4,7 +4,6 @@ import com.kiwifin.api.DTO.create.ClienteCreateDTO;
 import com.kiwifin.api.DTO.update.ClienteUpdateDTO;
 import com.kiwifin.api.DTO.view.ClienteViewDTO;
 import com.kiwifin.api.service.ClienteService;
-import com.kiwifin.api.service.conversor.ClienteConversorService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -19,11 +18,9 @@ import java.util.List;
 public class ClienteController extends ApiController {
 
     ClienteService service;
-    ClienteConversorService conversorService;
 
-    public ClienteController(ClienteService service, ClienteConversorService conversorService) {
+    public ClienteController(ClienteService service) {
         this.service = service;
-        this.conversorService = conversorService;
     }
 
     @ApiOperation(value = "Adiciona cliente", notes = "Adiciona cliente",
@@ -41,7 +38,7 @@ public class ClienteController extends ApiController {
         try {
             ClienteViewDTO clienteViewDTO;
 
-            clienteViewDTO = conversorService.entity2Dto(service.adicionarCliente(dto));
+            clienteViewDTO = service.incluirCliente(dto);
             return ResponseEntity.ok(clienteViewDTO);
 
         } catch (Exception e) {
@@ -65,7 +62,7 @@ public class ClienteController extends ApiController {
         try {
             ClienteViewDTO clienteViewDTO;
 
-            clienteViewDTO = conversorService.entity2Dto(service.editarCliente(dto));
+            clienteViewDTO = service.atualizarCliente(dto);
             return ResponseEntity.ok(clienteViewDTO);
 
         } catch (Exception e) {
@@ -92,9 +89,13 @@ public class ClienteController extends ApiController {
 
         try {
             List<ClienteViewDTO> clienteViewDTO;
+            clienteViewDTO = service.buscarCliente(idCliente, cpf, nome);
 
-            clienteViewDTO = conversorService.entityList2DtoList(service.pesquisarCliente(idCliente, cpf, nome));
-            return respondOk(clienteViewDTO);
+            if (clienteViewDTO.size() != 0) {
+                return respondOk(clienteViewDTO);
+            } else {
+                return respondNoContent("Cliente não encontrado.");
+            }
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -116,7 +117,7 @@ public class ClienteController extends ApiController {
         try {
             List<ClienteViewDTO> clienteViewDTO;
 
-            clienteViewDTO = conversorService.entityList2DtoList(service.pesquisarTodosClientes());
+            clienteViewDTO = service.buscarTodosClientes();
             return ResponseEntity.ok(clienteViewDTO);
 
         } catch (Exception e) {
