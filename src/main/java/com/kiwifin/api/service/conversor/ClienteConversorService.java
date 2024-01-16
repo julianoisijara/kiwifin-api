@@ -12,7 +12,7 @@ public class ClienteConversorService extends GenericConversor<Cliente, ClienteVi
 
         ClienteViewDTO dto = new ClienteViewDTO();
 
-        dto.setIdCliente(cliente.getidCliente());
+        dto.setIdCliente(cliente.getIdCliente());
         dto.setNome(cliente.getNome());
         dto.setEmail(cliente.getEmail());
         dto.setCpf(cliente.getCpf());
