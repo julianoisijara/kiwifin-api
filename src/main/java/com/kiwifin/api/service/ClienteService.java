@@ -6,6 +6,7 @@ import com.kiwifin.api.DTO.view.ClienteViewDTO;
 import com.kiwifin.api.entities.Cliente;
 import com.kiwifin.api.repositories.ClienteRepository;
 import com.kiwifin.api.service.conversor.ClienteConversorService;
+import com.kiwifin.api.service.data.GenericBusinessService;
 import com.kiwifin.api.service.data.GenericDataService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,15 +17,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ClienteService extends GenericDataService<Cliente, Long, ClienteRepository> {
+public class ClienteService extends GenericBusinessService<ClienteConversorService, ClienteRepository> {
 
-    ClienteConversorService conversorService;
 
     private static final Logger logger = LogManager.getLogger(ClienteService.class);
 
-    public ClienteService(ClienteConversorService conversorService) {
-        this.conversorService = conversorService;
-    }
 
     public ClienteViewDTO incluirCliente(ClienteCreateDTO clienteCreateDTO) {
         return conversorService.entity2Dto(adicionarCliente(clienteCreateDTO));
@@ -47,7 +44,7 @@ public class ClienteService extends GenericDataService<Cliente, Long, ClienteRep
 
     public List<Cliente> pesquisarTodosClientes() {
         try {
-            return repository.findAll();
+            return dataService.findAll();
         } catch (Exception e) {
             logger.error("Erro ao buscar todos os clientes: " + e.getMessage());
             return null;
@@ -60,16 +57,16 @@ public class ClienteService extends GenericDataService<Cliente, Long, ClienteRep
 
         try {
             if (idCliente != null) {
-                Optional<Cliente> cliente = repository.findById(idCliente);
+                Optional<Cliente> cliente = dataService.findById(idCliente);
                 if (cliente.isPresent()) {
                     listaCliente.add(cliente.get());
                 }
             }
             if (cpf != null) {
-                listaCliente.addAll(repository.findByCpfEquals(cpf));
+                listaCliente.addAll(dataService.findByCpfEquals(cpf));
             }
             if (nome != null) {
-                listaCliente.addAll(repository.findByNomeContains(nome.toUpperCase()));
+                listaCliente.addAll(dataService.findByNomeContains(nome.toUpperCase()));
             }
 
         } catch (Exception e) {
@@ -98,7 +95,7 @@ public class ClienteService extends GenericDataService<Cliente, Long, ClienteRep
             novoCliente.setUf(clienteDTO.getUf().toUpperCase());
             novoCliente.setComplemento(clienteDTO.getComplemento().toUpperCase());
 
-            repository.save(novoCliente);
+            dataService.save(novoCliente);
             return novoCliente;
 
         } catch (Exception e) {
@@ -109,7 +106,7 @@ public class ClienteService extends GenericDataService<Cliente, Long, ClienteRep
     
     public Cliente editarCliente(ClienteUpdateDTO clienteDTO) {
         try {
-            Optional<Cliente> atualizaCliente = findById(clienteDTO.getIdCliente());
+            Optional<Cliente> atualizaCliente = dataService.findById(clienteDTO.getIdCliente());
 
             if (atualizaCliente.isPresent()) {
 
@@ -147,7 +144,7 @@ public class ClienteService extends GenericDataService<Cliente, Long, ClienteRep
                     atualizaCliente.get().setComplemento(clienteDTO.getComplemento().toUpperCase());
                 }
 
-                repository.save(atualizaCliente.get());
+                dataService.save(atualizaCliente.get());
             }
 
             return atualizaCliente.get();
