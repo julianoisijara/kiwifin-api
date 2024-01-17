@@ -34,8 +34,8 @@ public class ClienteService extends GenericDataService<Cliente, Long, ClienteRep
         return conversorService.entity2Dto(editarCliente(clienteUpdateDTO));
     }
 
-    public List<ClienteViewDTO> buscarCliente(Long idCliente, String cpf, String nome) {
-        return conversorService.entityList2DtoList(pesquisarCliente(idCliente, cpf, nome));
+    public List<ClienteViewDTO> buscarClientes(Long idCliente, String cpf, String nome) {
+        return conversorService.entityList2DtoList(pesquisarClientes(idCliente, cpf, nome));
     }
 
     public List<ClienteViewDTO> buscarTodosClientes() {
@@ -54,7 +54,7 @@ public class ClienteService extends GenericDataService<Cliente, Long, ClienteRep
         }
     }
 
-    public List<Cliente> pesquisarCliente(Long idCliente, String cpf, String nome) {
+    public List<Cliente> pesquisarClientes(Long idCliente, String cpf, String nome) {
 
         List<Cliente> listaCliente = new ArrayList<>();
 
@@ -62,7 +62,7 @@ public class ClienteService extends GenericDataService<Cliente, Long, ClienteRep
             if (idCliente != null) {
                 Optional<Cliente> cliente = repository.findById(idCliente);
                 if (cliente.isPresent()) {
-                    listaCliente.add(repository.findById(idCliente).get());
+                    listaCliente.add(cliente.get());
                 }
             }
             if (cpf != null) {
