@@ -29,10 +29,6 @@ public class ClienteUpdateDTO implements Serializable {
         return idCliente;
     }
 
-    public void setIdCliente(Long idCliente) {
-        this.idCliente = idCliente;
-    }
-
     public String getNome() {
         return nome;
     }
