@@ -26,8 +26,8 @@ public class ClienteController extends ApiController {
     @ApiOperation(value = "Adiciona cliente", notes = "Adiciona cliente",
             response = ClienteViewDTO.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Clientes encontrados"),
-            @ApiResponse(code = 204, message = "Nenhum Clientes encontrado"),
+            @ApiResponse(code = 200, message = "Cliente adicionado"),
+            @ApiResponse(code = 204, message = "Nenhum Cliente adicionado"),
             @ApiResponse(code = 400, message = "Chamada incorreta"),
             @ApiResponse(code = 500, message = "Erro interno")
     }
@@ -74,12 +74,12 @@ public class ClienteController extends ApiController {
             response = ClienteViewDTO.class, responseContainer = "List")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Clientes encontrados"),
-            @ApiResponse(code = 204, message = "Nenhum Clientes encontrado"),
+            @ApiResponse(code = 204, message = "Nenhum Cliente encontrado"),
             @ApiResponse(code = 400, message = "Chamada incorreta"),
             @ApiResponse(code = 500, message = "Erro interno")
     }
     )
-    @GetMapping(value = "/pesquisar/idCliente/{idCliente}/cpf/{cpf}/nome/{nome}")
+    @GetMapping(value = "/pesquisar/{idCliente}/{cpf}/{nome}")
     public ResponseEntity<Object> pesquisar(@RequestParam(value = "idCliente", required = false) Long idCliente, @RequestParam(value = "cpf", required = false) String cpf, @RequestParam(value = "nome", required = false) String nome) {
 
         if (idCliente == null && cpf == null && nome == null) {
@@ -89,7 +89,7 @@ public class ClienteController extends ApiController {
 
         try {
             List<ClienteViewDTO> clienteViewDTO;
-            clienteViewDTO = service.buscarCliente(idCliente, cpf, nome);
+            clienteViewDTO = service.buscarClientes(idCliente, cpf, nome);
 
             if (clienteViewDTO.size() != 0) {
                 return respondOk(clienteViewDTO);
@@ -106,7 +106,7 @@ public class ClienteController extends ApiController {
             response = ClienteViewDTO.class, responseContainer = "List")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Clientes encontrados"),
-            @ApiResponse(code = 204, message = "Nenhum Clientes encontrado"),
+            @ApiResponse(code = 204, message = "Nenhum Cliente encontrado"),
             @ApiResponse(code = 400, message = "Chamada incorreta"),
             @ApiResponse(code = 500, message = "Erro interno")
     }
