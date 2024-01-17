@@ -11,7 +11,7 @@ public class Departamento {
 
     private Long idDepartamento;
     private String nome;
-    private String statusDepartamento;
+    private String status;
 
     public Departamento() {
     }
@@ -36,13 +36,13 @@ public class Departamento {
         this.nome = nome;
     }
 
-    @Column(name="STATUS_DEPARTAMENTO", nullable = false)
+    @Column(name="STATUS", nullable = false)
     public String getStatusDepartamento() {
-        return statusDepartamento;
+        return status;
     }
 
-    public void setStatusDepartamento(String statusDepartamento) {
-        this.statusDepartamento = statusDepartamento;
+    public void setStatusDepartamento(String status) {
+        this.status = status;
     }
 
     @Override
