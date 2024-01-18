@@ -104,8 +104,7 @@ public class DepartamentoController extends ApiController {
         }
     }
 
-    @ApiOperation(value = "Deletar departamento", notes = "Deletar departamento",
-            response = DepartamentoViewDTO.class)
+    @ApiOperation(value = "Deletar departamento", notes = "Deletar departamento")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Departamento deletado"),
             @ApiResponse(code = 204, message = "Nenhum Departamento deletado"),
