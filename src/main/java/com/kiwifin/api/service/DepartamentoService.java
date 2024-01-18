@@ -13,13 +13,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DepartamentoService extends GenericDataService<Departamento, Long, DepartamentoRepository> {
 
-    DepartamentoConversorService conversorService;
     private static final Logger logger = LogManager.getLogger(DepartamentoService.class);
+
+    DepartamentoConversorService conversorService;
 
     public DepartamentoService(DepartamentoConversorService conversorService) {
         this.conversorService = conversorService;
@@ -56,11 +56,9 @@ public class DepartamentoService extends GenericDataService<Departamento, Long, 
 
         try {
             if (idDepartamento != null) {
-                Optional<Departamento> departamento = repository.findById(idDepartamento);
+                Departamento departamento = getOne(idDepartamento);
 
-                if (departamento.isPresent()) {
-                    departamentoList.add(departamento.get());
-                }
+                departamentoList.add(departamento);
             }
             if (nome != null) {
                 departamentoList.addAll(repository.findByNomeContains(nome.toUpperCase()));
@@ -98,20 +96,19 @@ public class DepartamentoService extends GenericDataService<Departamento, Long, 
 
     public Departamento editarDepartamento(DepartamentoUpdateDTO departamentoUpdateDTO) {
         try {
-            Optional<Departamento> atualizaDepartamento = findById(departamentoUpdateDTO.getIdDepartamento());
+            Departamento atualizaDepartamento = getOne(departamentoUpdateDTO.getIdDepartamento());
 
-            if (atualizaDepartamento.isPresent()) {
-
-                if (departamentoUpdateDTO.getNome() != null) {
-                    atualizaDepartamento.get().setNome(departamentoUpdateDTO.getNome().toUpperCase());
-                }
-                if (departamentoUpdateDTO.getStatus() != null) {
-                    atualizaDepartamento.get().setStatusDepartamento(departamentoUpdateDTO.getStatus().toUpperCase());
-                }
-                repository.save(atualizaDepartamento.get());
+            if (departamentoUpdateDTO.getNome() != null) {
+                atualizaDepartamento.setNome(departamentoUpdateDTO.getNome().toUpperCase());
+            }
+            if (departamentoUpdateDTO.getStatus() != null) {
+                atualizaDepartamento.setStatusDepartamento(departamentoUpdateDTO.getStatus().toUpperCase());
             }
 
-            return atualizaDepartamento.get();
+            repository.save(atualizaDepartamento);
+
+
+            return atualizaDepartamento;
 
         } catch (Exception e) {
             logger.error("Erro ao atualizar o departamento: " + departamentoUpdateDTO.getIdDepartamento() + " Erro -> " + e.getMessage());
