@@ -29,20 +29,20 @@ public class Departamento {
 
     @Column(name="NOME", nullable = false)
     public String getNome() {
-        return nome;
+        return nome.toUpperCase();
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nome = nome.toUpperCase();
     }
 
     @Column(name="STATUS", nullable = false)
     public String getStatusDepartamento() {
-        return status;
+        return status.toUpperCase();
     }
 
     public void setStatusDepartamento(String status) {
-        this.status = status;
+        this.status = status.toUpperCase();
     }
 
     @Override
