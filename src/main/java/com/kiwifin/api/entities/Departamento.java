@@ -3,15 +3,18 @@ package com.kiwifin.api.entities;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name="DEPARTAMENTO", schema = "KIWIFIN")
-public class Departamento {
+public class Departamento implements Serializable {
+
+    private static final long serialVersionUID = -6738348962179643515L;
 
     private Long idDepartamento;
     private String nome;
-    private String status;
+    private Boolean status;
 
     public Departamento() {
     }
@@ -37,12 +40,12 @@ public class Departamento {
     }
 
     @Column(name="STATUS", nullable = false)
-    public String getStatusDepartamento() {
-        return status.toUpperCase();
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setStatusDepartamento(String status) {
-        this.status = status.toUpperCase();
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     @Override

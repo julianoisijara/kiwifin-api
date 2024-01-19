@@ -13,7 +13,7 @@ public class DepartamentoConversorService extends GenericConversor<Departamento,
 
         dto.setIdDepartamento(departamento.getIdDepartamento());
         dto.setNome(departamento.getNome());
-        dto.setStatus(departamento.getStatusDepartamento());
+        dto.setStatus(departamento.getStatus());
 
         return dto;
     }

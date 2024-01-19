@@ -10,7 +10,7 @@ public class DepartamentoUpdateDTO implements Serializable {
 
     private Long idDepartamento;
     private String nome;
-    private String status;
+    private Boolean status;
 
     public DepartamentoUpdateDTO() {
     }
@@ -27,11 +27,11 @@ public class DepartamentoUpdateDTO implements Serializable {
         this.nome = nome;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 }

@@ -9,9 +9,9 @@ import java.io.Serializable;
 public class DepartamentoCreateDTO implements Serializable {
 
     private String nome;
-    private String status;
+    private Boolean status;
 
-    public DepartamentoCreateDTO(String nome, String status) {
+    public DepartamentoCreateDTO(String nome, Boolean status) {
         this.nome = nome;
         this.status = status;
     }
@@ -24,11 +24,11 @@ public class DepartamentoCreateDTO implements Serializable {
         this.nome = nome;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 }

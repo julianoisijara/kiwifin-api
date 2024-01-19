@@ -10,5 +10,5 @@ import java.util.List;
 public interface DepartamentoRepository extends JpaRepository<Departamento, Long> {
 
     List<Departamento> findByNomeContains(String nome);
-    List<Departamento> findByStatusDepartamentoEquals(String statusDepartamento);
+    List<Departamento> findByStatusEquals(Boolean status);
 }

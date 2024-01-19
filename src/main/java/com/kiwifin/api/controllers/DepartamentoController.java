@@ -72,7 +72,7 @@ public class DepartamentoController extends ApiController {
     }
     )
     @GetMapping(value = "/pesquisar/{idDepartamento}/{nome}/{status}")
-    public ResponseEntity<Object> pesquisar(@RequestParam(value = "idDepartamento", required = false) Long idDepartamento, @RequestParam(value = "nome", required = false) String nome, @RequestParam(value = "status", required = false) String status) {
+    public ResponseEntity<Object> pesquisar(@RequestParam(value = "idDepartamento", required = false) Long idDepartamento, @RequestParam(value = "nome", required = false) String nome, @RequestParam(value = "status", required = false) Boolean status) {
 
         if (idDepartamento == null && nome == null && status == null) {
             return respondBadRequest("Informe ao menos um parâmetro de busca!");

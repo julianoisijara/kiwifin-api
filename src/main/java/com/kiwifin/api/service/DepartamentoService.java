@@ -33,7 +33,7 @@ public class DepartamentoService extends GenericDataService<Departamento, Long, 
         return conversorService.entity2Dto(editarDepartamento(departamentoUpdateDTO));
     }
 
-    public List<DepartamentoViewDTO> buscarDepartamentos(Long idDepartamento, String nome, String status) {
+    public List<DepartamentoViewDTO> buscarDepartamentos(Long idDepartamento, String nome, Boolean status) {
         return conversorService.entityList2DtoList(pesquisarDepartamento(idDepartamento, nome, status));
     }
 
@@ -51,7 +51,7 @@ public class DepartamentoService extends GenericDataService<Departamento, Long, 
         }
     }
 
-    public List<Departamento> pesquisarDepartamento(Long idDepartamento, String nome, String status) {
+    public List<Departamento> pesquisarDepartamento(Long idDepartamento, String nome, Boolean status) {
         List<Departamento> departamentoList = new ArrayList<>();
 
         try {
@@ -64,7 +64,7 @@ public class DepartamentoService extends GenericDataService<Departamento, Long, 
                 departamentoList.addAll(repository.findByNomeContains(nome.toUpperCase()));
             }
             if (status != null) {
-                departamentoList.addAll(repository.findByStatusDepartamentoEquals(status.toUpperCase()));
+                departamentoList.addAll(repository.findByStatusEquals(status));
             }
 
         } catch (Exception e) {
@@ -82,7 +82,7 @@ public class DepartamentoService extends GenericDataService<Departamento, Long, 
 
         try {
             novoDepartamento.setNome(departamentoDTO.getNome().toUpperCase());
-            novoDepartamento.setStatusDepartamento(departamentoDTO.getStatus().toUpperCase());
+            novoDepartamento.setStatus(departamentoDTO.getStatus());
 
             repository.save(novoDepartamento);
             return novoDepartamento;
@@ -102,7 +102,7 @@ public class DepartamentoService extends GenericDataService<Departamento, Long, 
                 atualizaDepartamento.setNome(departamentoUpdateDTO.getNome().toUpperCase());
             }
             if (departamentoUpdateDTO.getStatus() != null) {
-                atualizaDepartamento.setStatusDepartamento(departamentoUpdateDTO.getStatus().toUpperCase());
+                atualizaDepartamento.setStatus(departamentoUpdateDTO.getStatus());
             }
 
             repository.save(atualizaDepartamento);
