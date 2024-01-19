@@ -49,7 +49,7 @@ public class AtendenteController extends ApiController {
             @ApiResponse(code = 500, message = "Erro interno")
     }
     )
-    @GetMapping("/buscartodos")
+    @GetMapping("/buscar/todos")
     public ResponseEntity<Object> buscarTodosAtendentes() {
         try {
             return respondOk(service.buscarTodosAtendentes());
@@ -68,7 +68,7 @@ public class AtendenteController extends ApiController {
     }
     )
     @GetMapping("/buscar/{idAtendente}")
-    public ResponseEntity<Object> buscarTodosAtendentes(@RequestParam(value = "idAtendente") Long idAtendente) {
+    public ResponseEntity<Object> buscarAtendente(@RequestParam(value = "idAtendente") Long idAtendente) {
         try {
             return respondOk(service.buscarAtendente(idAtendente));
         } catch (Exception e) {
