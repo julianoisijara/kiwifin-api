@@ -95,7 +95,7 @@ public class DepartamentoController extends ApiController {
             @ApiResponse(code = 500, message = "Erro interno")
     }
     )
-    @GetMapping("/buscartodos")
+    @GetMapping("/buscar/todos")
     public ResponseEntity<Object> buscarTodosDepartamentos() {
         try {
             return respondOk(service.buscarTodosDepartamentos());
