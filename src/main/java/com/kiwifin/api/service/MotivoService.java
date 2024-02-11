@@ -7,6 +7,7 @@ import com.kiwifin.api.entities.Motivo;
 import com.kiwifin.api.repositories.MotivoRepository;
 import com.kiwifin.api.service.conversor.MotivoConversorService;
 import com.kiwifin.api.service.data.GenericDataService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,9 +18,11 @@ public class MotivoService extends GenericDataService<Motivo, Long, MotivoReposi
 
 
     MotivoConversorService conversorService;
+    DepartamentoService departamentoService;
 
-    public MotivoService(MotivoConversorService conversorService) {
+    public MotivoService(MotivoConversorService conversorService, DepartamentoService departamentoService) {
         this.conversorService = conversorService;
+        this.departamentoService = departamentoService;
     }
 
 
@@ -49,7 +52,7 @@ public class MotivoService extends GenericDataService<Motivo, Long, MotivoReposi
         novoMotivo.setNome(motivoCreateDTO.getNome());
         novoMotivo.setStatus(motivoCreateDTO.getStatus());
         novoMotivo.setPrazo(motivoCreateDTO.getPrazo());
-        novoMotivo.setDepartamento(motivoCreateDTO.getDepartamento());
+        novoMotivo.setDepartamento(departamentoService.getOne(motivoCreateDTO.getDepartamento()));
 
         repository.save(novoMotivo);
         return novoMotivo;
@@ -57,7 +60,7 @@ public class MotivoService extends GenericDataService<Motivo, Long, MotivoReposi
 
 
     public List<Motivo> pesquisarTodosMotivos() {
-        return repository.findAll();
+        return repository.findAll(Sort.by(Sort.Direction.ASC, "idMotivo"));
     }
 
 
@@ -92,7 +95,7 @@ public class MotivoService extends GenericDataService<Motivo, Long, MotivoReposi
             atualizarMotivo.setPrazo(motivoUpdateDTO.getPrazo());
         }
         if (motivoUpdateDTO.getDepartamento() != null) {
-            atualizarMotivo.setDepartamento(motivoUpdateDTO.getDepartamento());
+            atualizarMotivo.setDepartamento(departamentoService.getOne(motivoUpdateDTO.getDepartamento()));
         }
 
         repository.save(atualizarMotivo);
@@ -100,8 +103,9 @@ public class MotivoService extends GenericDataService<Motivo, Long, MotivoReposi
     }
 
 
-    public void excluirMotivo(Motivo motivo) {
-        repository.deleteById(motivo.getIdMotivo());
+    public void inativarMotivo(Motivo motivo) {
+        motivo.setStatus(false);
+        repository.save(motivo);
     }
 
 
