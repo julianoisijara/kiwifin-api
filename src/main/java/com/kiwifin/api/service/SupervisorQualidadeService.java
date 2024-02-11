@@ -8,6 +8,7 @@ import com.kiwifin.api.entities.SupervisorQualidade;
 import com.kiwifin.api.repositories.SupervisorQualidadeRepository;
 import com.kiwifin.api.service.conversor.SupervisorQualidadeConversorService;
 import com.kiwifin.api.service.data.GenericDataService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +17,11 @@ import java.util.List;
 public class SupervisorQualidadeService extends GenericDataService<SupervisorQualidade, Long, SupervisorQualidadeRepository> {
 
     SupervisorQualidadeConversorService conversorService;
+    DepartamentoService departamentoService;
 
-    public SupervisorQualidadeService(SupervisorQualidadeConversorService conversorService) {
+    public SupervisorQualidadeService(SupervisorQualidadeConversorService conversorService, DepartamentoService departamentoService) {
         this.conversorService = conversorService;
+        this.departamentoService = departamentoService;
     }
 
 
@@ -49,7 +52,7 @@ public class SupervisorQualidadeService extends GenericDataService<SupervisorQua
         novoSupervisor.setEmail(dto.getEmail());
         novoSupervisor.setCpf(dto.getCpf());
         novoSupervisor.setSenha(dto.getSenha());
-        novoSupervisor.setDepartamento(dto.getDepartamento());
+        novoSupervisor.setDepartamento(departamentoService.getOne(dto.getDepartamento()));
         novoSupervisor.setPerfil(dto.getPerfil().toUpperCase());
 
         repository.save(novoSupervisor);
@@ -57,7 +60,7 @@ public class SupervisorQualidadeService extends GenericDataService<SupervisorQua
     }
 
     public List<SupervisorQualidade> pesquisarTodosSupervisores() {
-        return repository.findAll();
+        return repository.findAll(Sort.by(Sort.Direction.ASC, "idColaborador"));
     }
 
     public SupervisorQualidade pesquisarSupervisorQualidade(Long id) {
@@ -81,7 +84,7 @@ public class SupervisorQualidadeService extends GenericDataService<SupervisorQua
             atualizaSupervisor.setSenha(updateDTO.getSenha());
         }
         if (updateDTO.getDepartamento() != null) {
-            atualizaSupervisor.setDepartamento(updateDTO.getDepartamento());
+            atualizaSupervisor.setDepartamento(departamentoService.getOne(updateDTO.getDepartamento()));
         }
         if (updateDTO.getPerfil() != null) {
             atualizaSupervisor.setPerfil(updateDTO.getPerfil().toUpperCase());
