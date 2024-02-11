@@ -6,6 +6,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MotivoConversorService extends GenericConversor<Motivo, MotivoViewDTO>{
+
+    private final DepartamentoConversorService conversorService;
+
+    public MotivoConversorService(DepartamentoConversorService conversorService) {
+        this.conversorService = conversorService;
+    }
+
     @Override
     public MotivoViewDTO entity2Dto(Motivo motivo) {
 
@@ -15,7 +22,7 @@ public class MotivoConversorService extends GenericConversor<Motivo, MotivoViewD
         dto.setNome(motivo.getNome());
         dto.setStatus(motivo.getStatus());
         dto.setPrazo(motivo.getPrazo());
-        dto.setDepartamento(motivo.getDepartamento());
+        dto.setDepartamento(conversorService.entity2Dto(motivo.getDepartamento()));
 
         return dto;
     }
