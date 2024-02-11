@@ -9,6 +9,7 @@ import com.kiwifin.api.service.conversor.AtendenteConversorService;
 import com.kiwifin.api.service.data.GenericDataService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,9 +20,11 @@ public class AtendenteService extends GenericDataService<Atendente, Long, Atende
     private static final Logger logger = LogManager.getLogger(AtendenteService.class);
 
     AtendenteConversorService conversorService;
+    DepartamentoService departamentoService;
 
-    public AtendenteService(AtendenteConversorService conversorService) {
+    public AtendenteService(AtendenteConversorService conversorService, DepartamentoService departamentoService) {
         this.conversorService = conversorService;
+        this.departamentoService = departamentoService;
     }
 
     public AtendenteViewDTO incluirAtendente(AtendenteCreateDTO atendenteCreateDTO) {
@@ -49,7 +52,7 @@ public class AtendenteService extends GenericDataService<Atendente, Long, Atende
         novoAtendente.setEmail(atendenteCreateDTO.getEmail());
         novoAtendente.setCpf(atendenteCreateDTO.getCpf());
         novoAtendente.setSenha(atendenteCreateDTO.getSenha());
-        novoAtendente.setDepartamento(atendenteCreateDTO.getDepartamento());
+        novoAtendente.setDepartamento(departamentoService.getOne(atendenteCreateDTO.getDepartamento()));
         novoAtendente.setPerfil(atendenteCreateDTO.getPerfil().toUpperCase());
 
         repository.save(novoAtendente);
@@ -60,7 +63,7 @@ public class AtendenteService extends GenericDataService<Atendente, Long, Atende
 
     public List<Atendente> pesquisarTodosAtendentes() {
         try {
-            return repository.findAll();
+            return repository.findAll(Sort.by(Sort.Direction.ASC, "idColaborador"));
         } catch (Exception e) {
             return null;
         }
@@ -99,7 +102,7 @@ public class AtendenteService extends GenericDataService<Atendente, Long, Atende
                 atualizaAtendente.setSenha(updateDTO.getSenha());
             }
             if (updateDTO.getDepartamento() != null) {
-                atualizaAtendente.setDepartamento(updateDTO.getDepartamento());
+                atualizaAtendente.setDepartamento(departamentoService.getOne(updateDTO.getDepartamento()));
             }
             if (updateDTO.getPerfil() != null) {
                 atualizaAtendente.setPerfil(updateDTO.getPerfil().toUpperCase());
