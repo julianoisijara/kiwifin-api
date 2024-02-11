@@ -112,12 +112,12 @@ public class MotivoController extends ApiController{
             @ApiResponse(code = 500, message = "Erro interno")
     }
     )
-    @DeleteMapping("deletar/{idMotivo}")
+    @DeleteMapping("inativar/{idMotivo}")
     public ResponseEntity deletar(@PathVariable("idMotivo") Long idMotivo) {
         return service.findById(idMotivo).map(entity -> {
-            service.excluirMotivo(entity);
-            return ResponseEntity.ok("Departamento " + idMotivo + " deletado com sucesso");
-        }).orElseGet(() -> ResponseEntity.badRequest().body("Erro ao deletar departamento: " + idMotivo));
+            service.inativarMotivo(entity);
+            return ResponseEntity.ok("Motivo " + idMotivo + " inativado");
+        }).orElseGet(() -> ResponseEntity.badRequest().body("Erro ao inativar motivo: " + idMotivo));
     }
 
 
