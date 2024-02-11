@@ -1,12 +1,10 @@
 package com.kiwifin.api.DTO.create;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import java.io.Serializable;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, property = "serialVersionUID")
 public class DepartamentoCreateDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String nome;
     private Boolean status;

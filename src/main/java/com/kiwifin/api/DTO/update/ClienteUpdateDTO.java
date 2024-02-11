@@ -1,14 +1,11 @@
 package com.kiwifin.api.DTO.update;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import java.io.Serializable;
 import java.util.Date;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, property = "serialVersionUID")
 public class ClienteUpdateDTO implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private Long idCliente;
     private String nome;
     private String email;

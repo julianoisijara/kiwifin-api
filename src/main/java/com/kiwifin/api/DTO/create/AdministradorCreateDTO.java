@@ -1,22 +1,19 @@
 package com.kiwifin.api.DTO.create;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.kiwifin.api.entities.Departamento;
-
 import java.io.Serializable;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, property = "serialVersionUID")
 public class AdministradorCreateDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String nome;
     private String email;
     private String cpf;
     private String senha;
-    private Departamento departamento;
+    private Long departamento;
     private String perfil;
 
-    public AdministradorCreateDTO(String nome, String email, String cpf, String senha, Departamento departamento, String perfil) {
+    public AdministradorCreateDTO(String nome, String email, String cpf, String senha, Long departamento, String perfil) {
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
@@ -57,11 +54,11 @@ public class AdministradorCreateDTO implements Serializable {
         this.senha = senha;
     }
 
-    public Departamento getDepartamento() {
+    public Long getDepartamento() {
         return departamento;
     }
 
-    public void setDepartamento(Departamento departamento) {
+    public void setDepartamento(Long departamento) {
         this.departamento = departamento;
     }
 

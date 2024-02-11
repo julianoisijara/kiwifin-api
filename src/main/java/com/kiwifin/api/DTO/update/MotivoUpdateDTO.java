@@ -1,19 +1,18 @@
 package com.kiwifin.api.DTO.update;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.kiwifin.api.entities.Departamento;
 
 import java.io.Serializable;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, property = "serialVersionUID")
 public class MotivoUpdateDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Long idMotivo;
     private String nome;
     private Boolean status;
     private Long prazo;
-    private Departamento departamento;
+    private Long departamento;
 
     public MotivoUpdateDTO() {
     }
@@ -46,11 +45,11 @@ public class MotivoUpdateDTO implements Serializable {
         this.prazo = prazo;
     }
 
-    public Departamento getDepartamento() {
+    public Long getDepartamento() {
         return departamento;
     }
 
-    public void setDepartamento(Departamento departamento) {
+    public void setDepartamento(Long departamento) {
         this.departamento = departamento;
     }
 }

@@ -1,20 +1,19 @@
 package com.kiwifin.api.DTO.update;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.kiwifin.api.entities.Departamento;
 
 import java.io.Serializable;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, property = "serialVersionUID")
 public class SupervisorQualidadeUpdateDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Long idColaborador;
     private String nome;
     private String email;
     private String cpf;
     private String senha;
-    private Departamento departamento;
+    private Long departamento;
     private String perfil;
 
     public SupervisorQualidadeUpdateDTO() {
@@ -56,11 +55,11 @@ public class SupervisorQualidadeUpdateDTO implements Serializable {
         this.senha = senha;
     }
 
-    public Departamento getDepartamento() {
+    public Long getDepartamento() {
         return departamento;
     }
 
-    public void setDepartamento(Departamento departamento) {
+    public void setDepartamento(Long departamento) {
         this.departamento = departamento;
     }
 
