@@ -6,6 +6,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AdministradorConversorService extends GenericConversor<Administrador, AdministradorViewDTO>{
+
+    private final DepartamentoConversorService departamentoConversorService;
+
+    public AdministradorConversorService(DepartamentoConversorService departamentoConversorService) {
+        this.departamentoConversorService = departamentoConversorService;
+    }
+
     @Override
     public AdministradorViewDTO entity2Dto(Administrador administrador) {
 
@@ -16,7 +23,7 @@ public class AdministradorConversorService extends GenericConversor<Administrado
         dto.setEmail(administrador.getEmail());
         dto.setCpf(administrador.getCpf());
         dto.setSenha(administrador.getSenha());
-        dto.setDepartamento(administrador.getDepartamento());
+        dto.setDepartamento(departamentoConversorService.entity2Dto(administrador.getDepartamento()));
         dto.setPerfil(administrador.getPerfil());
 
         return dto;
