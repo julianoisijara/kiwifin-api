@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AtendenteConversorService extends GenericConversor<Atendente, AtendenteViewDTO>{
 
+    private final DepartamentoConversorService departamentoConversorService;
+
+    public AtendenteConversorService(DepartamentoConversorService departamentoConversorService) {
+        this.departamentoConversorService = departamentoConversorService;
+    }
 
     @Override
     public AtendenteViewDTO entity2Dto(Atendente atendente) {
@@ -18,7 +23,7 @@ public class AtendenteConversorService extends GenericConversor<Atendente, Atend
         dto.setEmail(atendente.getEmail());
         dto.setCpf(atendente.getCpf());
         dto.setSenha(atendente.getSenha());
-        dto.setDepartamento(atendente.getDepartamento());
+        dto.setDepartamento(departamentoConversorService.entity2Dto(atendente.getDepartamento()));
         dto.setPerfil(atendente.getPerfil());
 
         return dto;
