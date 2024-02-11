@@ -9,6 +9,7 @@ import com.kiwifin.api.service.conversor.DepartamentoConversorService;
 import com.kiwifin.api.service.data.GenericDataService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class DepartamentoService extends GenericDataService<Departamento, Long, 
 
     public List<Departamento> pesquisarTodosDepartamentos() {
         try {
-            return repository.findAll();
+            return repository.findAll(Sort.by(Sort.Direction.ASC, "idDepartamento"));
         } catch (Exception e) {
             logger.error("Erro ao buscar departamentos " + e.getMessage());
             return null;
