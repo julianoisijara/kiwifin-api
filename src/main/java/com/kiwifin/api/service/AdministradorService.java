@@ -7,6 +7,7 @@ import com.kiwifin.api.entities.Administrador;
 import com.kiwifin.api.repositories.AdministradorRepository;
 import com.kiwifin.api.service.conversor.AdministradorConversorService;
 import com.kiwifin.api.service.data.GenericDataService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +16,11 @@ import java.util.List;
 public class AdministradorService extends GenericDataService<Administrador, Long, AdministradorRepository> {
 
     AdministradorConversorService conversorService;
+    DepartamentoService departamentoService;
 
-    public AdministradorService(AdministradorConversorService conversorService) {
+    public AdministradorService(AdministradorConversorService conversorService, DepartamentoService departamentoService) {
         this.conversorService = conversorService;
+        this.departamentoService = departamentoService;
     }
 
 
@@ -46,7 +49,7 @@ public class AdministradorService extends GenericDataService<Administrador, Long
         novoAdministrador.setEmail(dto.getEmail());
         novoAdministrador.setCpf(dto.getCpf());
         novoAdministrador.setSenha(dto.getSenha());
-        novoAdministrador.setDepartamento(dto.getDepartamento());
+        novoAdministrador.setDepartamento(departamentoService.getOne(dto.getDepartamento()));
         novoAdministrador.setPerfil(dto.getPerfil().toUpperCase());
 
         repository.save(novoAdministrador);
@@ -54,7 +57,7 @@ public class AdministradorService extends GenericDataService<Administrador, Long
     }
 
     public List<Administrador> pesquisarTodosAdministradores() {
-        return repository.findAll();
+        return repository.findAll(Sort.by(Sort.Direction.ASC, "idColaborador"));
     }
 
     public Administrador pesquisarAdministrador(Long id) {
@@ -78,7 +81,7 @@ public class AdministradorService extends GenericDataService<Administrador, Long
             atualizaAdministrador.setSenha(updateDTO.getSenha());
         }
         if (updateDTO.getDepartamento() != null) {
-            atualizaAdministrador.setDepartamento(updateDTO.getDepartamento());
+            atualizaAdministrador.setDepartamento(departamentoService.getOne(updateDTO.getDepartamento()));
         }
         if (updateDTO.getPerfil() != null) {
             atualizaAdministrador.setPerfil(updateDTO.getPerfil().toUpperCase());
