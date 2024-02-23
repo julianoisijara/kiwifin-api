@@ -19,8 +19,8 @@ public class AtendenteService extends GenericDataService<Atendente, Long, Atende
 
     private static final Logger logger = LogManager.getLogger(AtendenteService.class);
 
-    AtendenteConversorService conversorService;
-    DepartamentoService departamentoService;
+    private AtendenteConversorService conversorService;
+    private DepartamentoService departamentoService;
 
     public AtendenteService(AtendenteConversorService conversorService, DepartamentoService departamentoService) {
         this.conversorService = conversorService;
