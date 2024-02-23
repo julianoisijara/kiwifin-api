@@ -15,8 +15,8 @@ import java.util.List;
 @Service
 public class AdministradorService extends GenericDataService<Administrador, Long, AdministradorRepository> {
 
-    AdministradorConversorService conversorService;
-    DepartamentoService departamentoService;
+    private AdministradorConversorService conversorService;
+    private DepartamentoService departamentoService;
 
     public AdministradorService(AdministradorConversorService conversorService, DepartamentoService departamentoService) {
         this.conversorService = conversorService;

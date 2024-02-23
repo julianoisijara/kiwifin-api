@@ -6,5 +6,5 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="ADMINISTRADOR", schema = "KIWIFIN")
-public class Administrador extends Colaborador implements Serializable {
+public class Administrador extends Colaborador {
 }
