@@ -17,8 +17,8 @@ import java.util.List;
 public class MotivoService extends GenericDataService<Motivo, Long, MotivoRepository> {
 
 
-    MotivoConversorService conversorService;
-    DepartamentoService departamentoService;
+    private MotivoConversorService conversorService;
+    private DepartamentoService departamentoService;
 
     public MotivoService(MotivoConversorService conversorService, DepartamentoService departamentoService) {
         this.conversorService = conversorService;
