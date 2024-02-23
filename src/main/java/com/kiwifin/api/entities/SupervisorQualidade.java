@@ -7,5 +7,5 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="SUPERVISOR_QUALIDADE", schema = "KIWIFIN")
-public class SupervisorQualidade extends Colaborador implements Serializable {
+public class SupervisorQualidade extends Colaborador {
 }

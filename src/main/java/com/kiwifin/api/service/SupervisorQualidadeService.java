@@ -16,8 +16,8 @@ import java.util.List;
 @Service
 public class SupervisorQualidadeService extends GenericDataService<SupervisorQualidade, Long, SupervisorQualidadeRepository> {
 
-    SupervisorQualidadeConversorService conversorService;
-    DepartamentoService departamentoService;
+    private SupervisorQualidadeConversorService conversorService;
+    private DepartamentoService departamentoService;
 
     public SupervisorQualidadeService(SupervisorQualidadeConversorService conversorService, DepartamentoService departamentoService) {
         this.conversorService = conversorService;
