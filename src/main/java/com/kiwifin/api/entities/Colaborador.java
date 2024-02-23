@@ -2,11 +2,13 @@ package com.kiwifin.api.entities;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @MappedSuperclass
-public abstract class Colaborador {
+public abstract class Colaborador implements Serializable {
 
+    private static final long serialVersionUID = 1L;
 
 
     protected Long idColaborador;
