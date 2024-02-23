@@ -20,7 +20,7 @@ public class DepartamentoService extends GenericDataService<Departamento, Long, 
 
     private static final Logger logger = LogManager.getLogger(DepartamentoService.class);
 
-    DepartamentoConversorService conversorService;
+    private DepartamentoConversorService conversorService;
 
     public DepartamentoService(DepartamentoConversorService conversorService) {
         this.conversorService = conversorService;

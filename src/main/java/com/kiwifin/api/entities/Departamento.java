@@ -10,7 +10,7 @@ import java.util.Objects;
 @Table(name="DEPARTAMENTO", schema = "KIWIFIN")
 public class Departamento implements Serializable {
 
-    private static final long serialVersionUID = -6738348962179643515L;
+    private static final long serialVersionUID = 1L;
 
     private Long idDepartamento;
     private String nome;
