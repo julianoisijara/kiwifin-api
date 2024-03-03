@@ -67,6 +67,10 @@ public class SupervisorQualidadeService extends GenericDataService<SupervisorQua
         return getOne(id);
     }
 
+    public SupervisorQualidade pesquisarSupervisorQualidadeCpf(String cpf) {
+        return repository.findByCpfEquals(cpf);
+    }
+
     public SupervisorQualidade editarSupervisorQualidade(SupervisorQualidadeUpdateDTO updateDTO) {
 
         SupervisorQualidade atualizaSupervisor = getOne(updateDTO.getIdColaborador());
