@@ -105,7 +105,7 @@ public class AtendimentoController extends ApiController{
             @ApiResponse(code = 500, message = "Erro interno")
     }
     )
-    @PostMapping(value = "/atendente/assumir")
+    @PutMapping(value = "/atendente/assumir")
     public ResponseEntity<Object> atendenteAssumirAtendimento(@RequestBody AtendimentoUpdateDTO dto) {
         try {
             return ResponseEntity.ok(service.atendentePegarAtendimento(dto));
@@ -123,7 +123,7 @@ public class AtendimentoController extends ApiController{
             @ApiResponse(code = 500, message = "Erro interno")
     }
     )
-    @PostMapping(value = "/supervisor/assumir")
+    @PutMapping(value = "/supervisor/assumir")
     public ResponseEntity<Object> supervisorAssumirAtendimento(@RequestBody AtendimentoUpdateDTO dto) {
         try {
             return ResponseEntity.ok(service.supervisorPegarAtendimento(dto));
@@ -141,7 +141,7 @@ public class AtendimentoController extends ApiController{
             @ApiResponse(code = 500, message = "Erro interno")
     }
     )
-    @PostMapping(value = "/atendente/fechar")
+    @PutMapping(value = "/atendente/fechar")
     public ResponseEntity<Object> atendenteFechaAtendimento(@RequestBody AtendimentoUpdateDTO dto) {
         try {
             return ResponseEntity.ok(service.fecharAtendimento(dto));
@@ -159,7 +159,7 @@ public class AtendimentoController extends ApiController{
             @ApiResponse(code = 500, message = "Erro interno")
     }
     )
-    @GetMapping(value = "/reabrir/{id}/{justificativa}")
+    @PutMapping(value = "/reabrir/{id}/{justificativa}")
     public ResponseEntity<Object> reabrirAtendimento(@PathVariable("id") Long id, @PathVariable("justificativa") String justificativa) {
         try {
             return ResponseEntity.ok(service.reabrirAtendimento(id, justificativa));
@@ -177,7 +177,7 @@ public class AtendimentoController extends ApiController{
             @ApiResponse(code = 500, message = "Erro interno")
     }
     )
-    @PostMapping(value = "/questionamento/empresa")
+    @PutMapping(value = "/questionamento/empresa")
     public ResponseEntity<Object> questionamentoEmpresa(@RequestBody AtendimentoUpdateDTO dto) {
         try {
             return ResponseEntity.ok(service.atendimentoEmPendencia(dto));
@@ -195,7 +195,7 @@ public class AtendimentoController extends ApiController{
             @ApiResponse(code = 500, message = "Erro interno")
     }
     )
-    @PostMapping(value = "/questionamento/resposta")
+    @PutMapping(value = "/questionamento/resposta")
     public ResponseEntity<Object> respostaQuestionamentoEmpresa(@RequestBody AtendimentoUpdateDTO dto) {
         try {
             return ResponseEntity.ok(service.atendimentoRespostaPendencia(dto));
@@ -213,7 +213,7 @@ public class AtendimentoController extends ApiController{
             @ApiResponse(code = 500, message = "Erro interno")
     }
     )
-    @PostMapping(value = "/transferir/motivo/atendente")
+    @PutMapping(value = "/transferir/motivo/atendente")
     public ResponseEntity<Object> transferirMotivoPorAtendente(@RequestBody AtendimentoUpdateDTO dto) {
         try {
             return ResponseEntity.ok(service.transferirMotivoPorAtendente(dto));
@@ -231,7 +231,7 @@ public class AtendimentoController extends ApiController{
             @ApiResponse(code = 500, message = "Erro interno")
     }
     )
-    @PostMapping(value = "/transferir/motivo/supervisor")
+    @PutMapping(value = "/transferir/motivo/supervisor")
     public ResponseEntity<Object> transferirMotivoPorSupervisor(@RequestBody AtendimentoUpdateDTO dto) {
         try {
             return ResponseEntity.ok(service.transferirMotivoPorSupervisor(dto));
@@ -249,7 +249,7 @@ public class AtendimentoController extends ApiController{
             @ApiResponse(code = 500, message = "Erro interno")
     }
     )
-    @PostMapping(value = "/encerrar")
+    @PutMapping(value = "/encerrar")
     public ResponseEntity<Object> encerrarAtendimento(@RequestBody AtendimentoUpdateDTO dto) {
         try {
             return ResponseEntity.ok(service.finalizarAtendimento(dto));
