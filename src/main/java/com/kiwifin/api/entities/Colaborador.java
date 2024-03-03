@@ -76,7 +76,7 @@ public abstract class Colaborador implements Serializable {
         this.departamento = departamento;
     }
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PERFIL", referencedColumnName = "ID_PERFIL")
     public Perfil getPerfil() {
         return perfil;

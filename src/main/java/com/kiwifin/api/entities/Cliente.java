@@ -143,7 +143,7 @@ public class Cliente implements Serializable {
         this.complemento = complemento;
     }
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PERFIL", referencedColumnName = "ID_PERFIL")
     public Perfil getPerfil() {
         return perfil;
