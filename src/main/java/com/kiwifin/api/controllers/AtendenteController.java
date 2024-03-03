@@ -85,7 +85,7 @@ public class AtendenteController extends ApiController {
             @ApiResponse(code = 500, message = "Erro interno")
     }
     )
-    @PostMapping("/editar")
+    @PutMapping("/editar")
     public ResponseEntity<Object> editar(@RequestBody AtendenteUpdateDTO dto) {
         try {
             return ResponseEntity.ok(service.atualizarAtendente(dto));
