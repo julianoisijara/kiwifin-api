@@ -7,9 +7,9 @@ import com.kiwifin.api.entities.Cliente;
 import com.kiwifin.api.repositories.ClienteRepository;
 import com.kiwifin.api.service.conversor.ClienteConversorService;
 import com.kiwifin.api.service.data.GenericBusinessService;
-import com.kiwifin.api.service.data.GenericDataService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -86,7 +86,7 @@ public class ClienteService extends GenericBusinessService<ClienteConversorServi
             novoCliente.setNome(clienteDTO.getNome().toUpperCase());
             novoCliente.setEmail(clienteDTO.getEmail());
             novoCliente.setCpf(clienteDTO.getCpf());
-            novoCliente.setSenha(clienteDTO.getSenha());
+            novoCliente.setSenha(new BCryptPasswordEncoder().encode(clienteDTO.getSenha()));
             novoCliente.setDataNascimento(clienteDTO.getDataNascimento());
             novoCliente.setCelular(clienteDTO.getCelular());
             novoCliente.setCep(clienteDTO.getCep());
@@ -120,7 +120,7 @@ public class ClienteService extends GenericBusinessService<ClienteConversorServi
                     atualizaCliente.get().setCpf(clienteDTO.getCpf());
                 }
                 if (clienteDTO.getSenha() != null) {
-                    atualizaCliente.get().setSenha(clienteDTO.getSenha());
+                    atualizaCliente.get().setSenha(new BCryptPasswordEncoder().encode(clienteDTO.getSenha()));
                 }
                 if (clienteDTO.getDataNascimento() != null) {
                     atualizaCliente.get().setDataNascimento(clienteDTO.getDataNascimento());

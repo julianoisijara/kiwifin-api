@@ -9,6 +9,7 @@ import com.kiwifin.api.repositories.SupervisorQualidadeRepository;
 import com.kiwifin.api.service.conversor.SupervisorQualidadeConversorService;
 import com.kiwifin.api.service.data.GenericDataService;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,7 +52,7 @@ public class SupervisorQualidadeService extends GenericDataService<SupervisorQua
         novoSupervisor.setNome(dto.getNome().toUpperCase());
         novoSupervisor.setEmail(dto.getEmail());
         novoSupervisor.setCpf(dto.getCpf());
-        novoSupervisor.setSenha(dto.getSenha());
+        novoSupervisor.setSenha(new BCryptPasswordEncoder().encode(dto.getSenha()));
         novoSupervisor.setDepartamento(departamentoService.getOne(dto.getDepartamento()));
         novoSupervisor.setPerfil(dto.getPerfil().toUpperCase());
 
@@ -82,7 +83,7 @@ public class SupervisorQualidadeService extends GenericDataService<SupervisorQua
             atualizaSupervisor.setEmail(updateDTO.getEmail());
         }
         if (updateDTO.getCpf() != null) {
-            atualizaSupervisor.setCpf(updateDTO.getCpf());
+            atualizaSupervisor.setCpf(new BCryptPasswordEncoder().encode(updateDTO.getCpf()));
         }
         if (updateDTO.getSenha() != null) {
             atualizaSupervisor.setSenha(updateDTO.getSenha());

@@ -10,6 +10,7 @@ import com.kiwifin.api.service.data.GenericDataService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class AtendenteService extends GenericDataService<Atendente, Long, Atende
 
         novoAtendente.setNome(atendenteCreateDTO.getNome().toUpperCase());
         novoAtendente.setEmail(atendenteCreateDTO.getEmail());
-        novoAtendente.setCpf(atendenteCreateDTO.getCpf());
+        novoAtendente.setCpf(new BCryptPasswordEncoder().encode(atendenteCreateDTO.getCpf()));
         novoAtendente.setSenha(atendenteCreateDTO.getSenha());
         novoAtendente.setDepartamento(departamentoService.getOne(atendenteCreateDTO.getDepartamento()));
         novoAtendente.setPerfil(atendenteCreateDTO.getPerfil().toUpperCase());
@@ -103,7 +104,7 @@ public class AtendenteService extends GenericDataService<Atendente, Long, Atende
                 atualizaAtendente.setCpf(updateDTO.getCpf());
             }
             if (updateDTO.getSenha() != null) {
-                atualizaAtendente.setSenha(updateDTO.getSenha());
+                atualizaAtendente.setSenha(new BCryptPasswordEncoder().encode(updateDTO.getSenha()));
             }
             if (updateDTO.getDepartamento() != null) {
                 atualizaAtendente.setDepartamento(departamentoService.getOne(updateDTO.getDepartamento()));

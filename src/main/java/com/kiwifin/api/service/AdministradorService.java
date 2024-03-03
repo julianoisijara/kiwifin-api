@@ -49,7 +49,7 @@ public class AdministradorService extends GenericDataService<Administrador, Long
         novoAdministrador.setNome(dto.getNome().toUpperCase());
         novoAdministrador.setEmail(dto.getEmail());
         novoAdministrador.setCpf(dto.getCpf());
-        novoAdministrador.setSenha(dto.getSenha());
+        novoAdministrador.setSenha(new BCryptPasswordEncoder().encode(dto.getSenha()));
         novoAdministrador.setDepartamento(departamentoService.getOne(dto.getDepartamento()));
         novoAdministrador.setPerfil(dto.getPerfil().toUpperCase());
 
@@ -80,7 +80,7 @@ public class AdministradorService extends GenericDataService<Administrador, Long
             atualizaAdministrador.setEmail(updateDTO.getEmail());
         }
         if (updateDTO.getCpf() != null) {
-            atualizaAdministrador.setCpf(updateDTO.getCpf());
+            atualizaAdministrador.setCpf(new BCryptPasswordEncoder().encode(updateDTO.getCpf()));
         }
         if (updateDTO.getSenha() != null) {
             atualizaAdministrador.setSenha(new BCryptPasswordEncoder().encode(updateDTO.getSenha()));
