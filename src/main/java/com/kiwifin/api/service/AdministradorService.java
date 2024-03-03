@@ -8,6 +8,7 @@ import com.kiwifin.api.repositories.AdministradorRepository;
 import com.kiwifin.api.service.conversor.AdministradorConversorService;
 import com.kiwifin.api.service.data.GenericDataService;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -64,6 +65,10 @@ public class AdministradorService extends GenericDataService<Administrador, Long
         return getOne(id);
     }
 
+    public Administrador pesquisaAdministradorCpf(String cpf) {
+        return repository.findByCpfEquals(cpf);
+    }
+
     public Administrador editarAdministrador(AdministradorUpdateDTO updateDTO) {
 
         Administrador atualizaAdministrador = getOne(updateDTO.getIdColaborador());
@@ -78,7 +83,7 @@ public class AdministradorService extends GenericDataService<Administrador, Long
             atualizaAdministrador.setCpf(updateDTO.getCpf());
         }
         if (updateDTO.getSenha() != null) {
-            atualizaAdministrador.setSenha(updateDTO.getSenha());
+            atualizaAdministrador.setSenha(new BCryptPasswordEncoder().encode(updateDTO.getSenha()));
         }
         if (updateDTO.getDepartamento() != null) {
             atualizaAdministrador.setDepartamento(departamentoService.getOne(updateDTO.getDepartamento()));
