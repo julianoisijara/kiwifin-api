@@ -83,10 +83,10 @@ public class SupervisorQualidadeService extends GenericDataService<SupervisorQua
             atualizaSupervisor.setEmail(updateDTO.getEmail());
         }
         if (updateDTO.getCpf() != null) {
-            atualizaSupervisor.setCpf(new BCryptPasswordEncoder().encode(updateDTO.getCpf()));
+            atualizaSupervisor.setCpf(updateDTO.getCpf());
         }
         if (updateDTO.getSenha() != null) {
-            atualizaSupervisor.setSenha(updateDTO.getSenha());
+            atualizaSupervisor.setSenha(new BCryptPasswordEncoder().encode(updateDTO.getSenha()));
         }
         if (updateDTO.getDepartamento() != null) {
             atualizaSupervisor.setDepartamento(departamentoService.getOne(updateDTO.getDepartamento()));

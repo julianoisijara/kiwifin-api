@@ -51,8 +51,8 @@ public class AtendenteService extends GenericDataService<Atendente, Long, Atende
 
         novoAtendente.setNome(atendenteCreateDTO.getNome().toUpperCase());
         novoAtendente.setEmail(atendenteCreateDTO.getEmail());
-        novoAtendente.setCpf(new BCryptPasswordEncoder().encode(atendenteCreateDTO.getCpf()));
-        novoAtendente.setSenha(atendenteCreateDTO.getSenha());
+        novoAtendente.setCpf(atendenteCreateDTO.getCpf());
+        novoAtendente.setSenha(new BCryptPasswordEncoder().encode(atendenteCreateDTO.getSenha()));
         novoAtendente.setDepartamento(departamentoService.getOne(atendenteCreateDTO.getDepartamento()));
         novoAtendente.setPerfil(atendenteCreateDTO.getPerfil().toUpperCase());
 

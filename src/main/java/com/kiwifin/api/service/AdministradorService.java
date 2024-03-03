@@ -80,7 +80,7 @@ public class AdministradorService extends GenericDataService<Administrador, Long
             atualizaAdministrador.setEmail(updateDTO.getEmail());
         }
         if (updateDTO.getCpf() != null) {
-            atualizaAdministrador.setCpf(new BCryptPasswordEncoder().encode(updateDTO.getCpf()));
+            atualizaAdministrador.setCpf(updateDTO.getCpf());
         }
         if (updateDTO.getSenha() != null) {
             atualizaAdministrador.setSenha(new BCryptPasswordEncoder().encode(updateDTO.getSenha()));
