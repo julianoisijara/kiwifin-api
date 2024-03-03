@@ -22,7 +22,6 @@ public class AdministradorConversorService extends GenericConversor<Administrado
         dto.setNome(administrador.getNome());
         dto.setEmail(administrador.getEmail());
         dto.setCpf(administrador.getCpf());
-        dto.setSenha(administrador.getSenha());
         dto.setDepartamento(departamentoConversorService.entity2Dto(administrador.getDepartamento()));
         dto.setPerfil(administrador.getPerfil());
 

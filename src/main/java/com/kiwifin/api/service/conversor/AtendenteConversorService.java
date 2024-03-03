@@ -22,7 +22,6 @@ public class AtendenteConversorService extends GenericConversor<Atendente, Atend
         dto.setNome(atendente.getNome());
         dto.setEmail(atendente.getEmail());
         dto.setCpf(atendente.getCpf());
-        dto.setSenha(atendente.getSenha());
         dto.setDepartamento(departamentoConversorService.entity2Dto(atendente.getDepartamento()));
         dto.setPerfil(atendente.getPerfil());
 

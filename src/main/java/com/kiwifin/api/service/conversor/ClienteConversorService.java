@@ -16,7 +16,6 @@ public class ClienteConversorService extends GenericConversor<Cliente, ClienteVi
         dto.setNome(cliente.getNome());
         dto.setEmail(cliente.getEmail());
         dto.setCpf(cliente.getCpf());
-        dto.setSenha(cliente.getSenha());
         dto.setDataNascimento(cliente.getDataNascimento());
         dto.setCelular(cliente.getCelular());
         dto.setCep(cliente.getCep());

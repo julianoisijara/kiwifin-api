@@ -22,7 +22,6 @@ public class SupervisorQualidadeConversorService extends GenericConversor<Superv
         dto.setNome(supervisorQualidade.getNome());
         dto.setEmail(supervisorQualidade.getEmail());
         dto.setCpf(supervisorQualidade.getCpf());
-        dto.setSenha(supervisorQualidade.getSenha());
         dto.setDepartamento(departamentoConversorService.entity2Dto(supervisorQualidade.getDepartamento()));
         dto.setPerfil(supervisorQualidade.getPerfil());
 
