@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AtendenteRepository extends JpaRepository<Atendente, Long>{
+
+    Atendente findByCpfEquals(String cpf);
 }
