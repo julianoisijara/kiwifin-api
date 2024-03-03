@@ -84,6 +84,10 @@ public class AtendenteService extends GenericDataService<Atendente, Long, Atende
         return atendente;
     }
 
+    public Atendente pesquisarAtendenteCpf(String cpf) {
+        return repository.findByCpfEquals(cpf);
+    }
+
     public Atendente editarAtendente(AtendenteUpdateDTO updateDTO) {
 
         try {
