@@ -52,7 +52,7 @@ public class MotivoController extends ApiController{
             @ApiResponse(code = 500, message = "Erro interno")
     }
     )
-    @PostMapping("/editar")
+    @PutMapping("/editar")
     public ResponseEntity<Object> editar(@RequestBody MotivoUpdateDTO dto) {
 
         try {
