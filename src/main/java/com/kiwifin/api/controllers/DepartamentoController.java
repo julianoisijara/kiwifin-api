@@ -51,7 +51,7 @@ public class DepartamentoController extends ApiController {
             @ApiResponse(code = 500, message = "Erro interno")
     }
     )
-    @PostMapping("/editar")
+    @PutMapping("/editar")
     public ResponseEntity<Object> editar(@RequestBody DepartamentoUpdateDTO dto) {
 
         try {
