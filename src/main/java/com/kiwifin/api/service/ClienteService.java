@@ -22,6 +22,14 @@ public class ClienteService extends GenericBusinessService<ClienteConversorServi
 
     private static final Logger logger = LogManager.getLogger(ClienteService.class);
 
+    private PerfilService perfilService;
+
+
+    public ClienteService(PerfilService perfilService) {
+        this.perfilService = perfilService;
+    }
+
+
 
     public ClienteViewDTO incluirCliente(ClienteCreateDTO clienteCreateDTO) {
         return conversorService.entity2Dto(adicionarCliente(clienteCreateDTO));
@@ -94,6 +102,7 @@ public class ClienteService extends GenericBusinessService<ClienteConversorServi
             novoCliente.setEndereco(clienteDTO.getEndereco().toUpperCase());
             novoCliente.setUf(clienteDTO.getUf().toUpperCase());
             novoCliente.setComplemento(clienteDTO.getComplemento().toUpperCase());
+            novoCliente.setPerfil(perfilService.buscarPermissao(4L));
 
             dataService.save(novoCliente);
             return novoCliente;

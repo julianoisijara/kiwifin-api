@@ -19,6 +19,7 @@ public class ClienteViewDTO implements Serializable {
     private String endereco;
     private String uf;
     private String complemento;
+    private PerfilViewDTO perfil;
 
     public ClienteViewDTO() {
     }
@@ -117,5 +118,13 @@ public class ClienteViewDTO implements Serializable {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+
+    public PerfilViewDTO getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(PerfilViewDTO perfil) {
+        this.perfil = perfil;
     }
 }

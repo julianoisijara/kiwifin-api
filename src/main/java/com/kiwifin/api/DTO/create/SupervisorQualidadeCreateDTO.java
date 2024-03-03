@@ -1,5 +1,7 @@
 package com.kiwifin.api.DTO.create;
 
+import com.kiwifin.api.DTO.view.PerfilViewDTO;
+
 import java.io.Serializable;
 
 public class SupervisorQualidadeCreateDTO implements Serializable {
@@ -11,15 +13,13 @@ public class SupervisorQualidadeCreateDTO implements Serializable {
     private String cpf;
     private String senha;
     private Long departamento;
-    private String perfil;
 
-    public SupervisorQualidadeCreateDTO(String nome, String email, String cpf, String senha, Long departamento, String perfil) {
+    public SupervisorQualidadeCreateDTO(String nome, String email, String cpf, String senha, Long departamento) {
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
         this.senha = senha;
         this.departamento = departamento;
-        this.perfil = perfil;
     }
 
     public String getNome() {
@@ -62,11 +62,4 @@ public class SupervisorQualidadeCreateDTO implements Serializable {
         this.departamento = departamento;
     }
 
-    public String getPerfil() {
-        return perfil;
-    }
-
-    public void setPerfil(String perfil) {
-        this.perfil = perfil;
-    }
 }

@@ -17,7 +17,7 @@ public abstract class Colaborador implements Serializable {
     protected String cpf;
     protected String senha;
     protected Departamento departamento;
-    protected String perfil;
+    protected Perfil perfil;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,12 +76,13 @@ public abstract class Colaborador implements Serializable {
         this.departamento = departamento;
     }
 
-    @Column(name="PERFIL", nullable = false)
-    public String getPerfil() {
+    @OneToOne
+    @JoinColumn(name = "PERFIL", referencedColumnName = "ID_PERFIL")
+    public Perfil getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(String perfil) {
+    public void setPerfil(Perfil perfil) {
         this.perfil = perfil;
     }
 

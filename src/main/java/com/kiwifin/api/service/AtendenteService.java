@@ -22,10 +22,12 @@ public class AtendenteService extends GenericDataService<Atendente, Long, Atende
 
     private AtendenteConversorService conversorService;
     private DepartamentoService departamentoService;
+    private PerfilService perfilService;
 
-    public AtendenteService(AtendenteConversorService conversorService, DepartamentoService departamentoService) {
+    public AtendenteService(AtendenteConversorService conversorService, DepartamentoService departamentoService, PerfilService perfilService) {
         this.conversorService = conversorService;
         this.departamentoService = departamentoService;
+        this.perfilService = perfilService;
     }
 
     public AtendenteViewDTO incluirAtendente(AtendenteCreateDTO atendenteCreateDTO) {
@@ -54,7 +56,7 @@ public class AtendenteService extends GenericDataService<Atendente, Long, Atende
         novoAtendente.setCpf(atendenteCreateDTO.getCpf());
         novoAtendente.setSenha(new BCryptPasswordEncoder().encode(atendenteCreateDTO.getSenha()));
         novoAtendente.setDepartamento(departamentoService.getOne(atendenteCreateDTO.getDepartamento()));
-        novoAtendente.setPerfil(atendenteCreateDTO.getPerfil().toUpperCase());
+        novoAtendente.setPerfil(perfilService.getOne(3L));
 
         repository.save(novoAtendente);
 
@@ -108,9 +110,6 @@ public class AtendenteService extends GenericDataService<Atendente, Long, Atende
             }
             if (updateDTO.getDepartamento() != null) {
                 atualizaAtendente.setDepartamento(departamentoService.getOne(updateDTO.getDepartamento()));
-            }
-            if (updateDTO.getPerfil() != null) {
-                atualizaAtendente.setPerfil(updateDTO.getPerfil().toUpperCase());
             }
 
             return repository.save(atualizaAtendente);

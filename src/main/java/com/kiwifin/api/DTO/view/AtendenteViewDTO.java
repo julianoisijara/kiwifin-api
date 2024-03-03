@@ -12,7 +12,7 @@ public class AtendenteViewDTO implements Serializable {
     private String cpf;
     private String senha;
     private DepartamentoViewDTO departamento;
-    private String perfil;
+    private PerfilViewDTO perfil;
 
     public AtendenteViewDTO() {
     }
@@ -65,11 +65,11 @@ public class AtendenteViewDTO implements Serializable {
         this.departamento = departamento;
     }
 
-    public String getPerfil() {
+    public PerfilViewDTO getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(String perfil) {
+    public void setPerfil(PerfilViewDTO perfil) {
         this.perfil = perfil;
     }
 }

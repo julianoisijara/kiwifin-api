@@ -1,7 +1,5 @@
 package com.kiwifin.api.DTO.update;
 
-import com.kiwifin.api.entities.Departamento;
-
 import java.io.Serializable;
 
 public class AtendenteUpdateDTO implements Serializable {
@@ -14,7 +12,6 @@ public class AtendenteUpdateDTO implements Serializable {
     private String cpf;
     private String senha;
     private Long departamento;
-    private String perfil;
 
     public AtendenteUpdateDTO() {
     }
@@ -61,13 +58,5 @@ public class AtendenteUpdateDTO implements Serializable {
 
     public void setDepartamento(Long departamento) {
         this.departamento = departamento;
-    }
-
-    public String getPerfil() {
-        return perfil;
-    }
-
-    public void setPerfil(String perfil) {
-        this.perfil = perfil;
     }
 }

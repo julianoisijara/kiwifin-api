@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClienteConversorService extends GenericConversor<Cliente, ClienteViewDTO>{
 
+    private final PerfilConversorService perfilConversorService;
+
+    public ClienteConversorService(PerfilConversorService perfilConversorService) {
+        this.perfilConversorService = perfilConversorService;
+    }
 
     public ClienteViewDTO entity2Dto(Cliente cliente) {
 
@@ -23,6 +28,7 @@ public class ClienteConversorService extends GenericConversor<Cliente, ClienteVi
         dto.setEndereco(cliente.getEndereco());
         dto.setUf(cliente.getUf());
         dto.setComplemento(cliente.getComplemento());
+        dto.setPerfil(perfilConversorService.entity2Dto(cliente.getPerfil()));
 
         return dto;
     }

@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 public class SupervisorQualidadeConversorService extends GenericConversor<SupervisorQualidade, SupervisorQualidadeViewDTO> {
 
     private final DepartamentoConversorService departamentoConversorService;
+    private final PerfilConversorService perfilConversorService;
 
-    public SupervisorQualidadeConversorService(DepartamentoConversorService departamentoConversorService) {
+    public SupervisorQualidadeConversorService(DepartamentoConversorService departamentoConversorService, PerfilConversorService perfilConversorService) {
         this.departamentoConversorService = departamentoConversorService;
+        this.perfilConversorService = perfilConversorService;
     }
 
     @Override
@@ -23,7 +25,7 @@ public class SupervisorQualidadeConversorService extends GenericConversor<Superv
         dto.setEmail(supervisorQualidade.getEmail());
         dto.setCpf(supervisorQualidade.getCpf());
         dto.setDepartamento(departamentoConversorService.entity2Dto(supervisorQualidade.getDepartamento()));
-        dto.setPerfil(supervisorQualidade.getPerfil());
+        dto.setPerfil(perfilConversorService.entity2Dto(supervisorQualidade.getPerfil()));
 
         return dto;
     }

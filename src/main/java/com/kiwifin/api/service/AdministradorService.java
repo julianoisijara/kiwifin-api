@@ -18,10 +18,12 @@ public class AdministradorService extends GenericDataService<Administrador, Long
 
     private AdministradorConversorService conversorService;
     private DepartamentoService departamentoService;
+    private PerfilService perfilService;
 
-    public AdministradorService(AdministradorConversorService conversorService, DepartamentoService departamentoService) {
+    public AdministradorService(AdministradorConversorService conversorService, DepartamentoService departamentoService, PerfilService perfilService) {
         this.conversorService = conversorService;
         this.departamentoService = departamentoService;
+        this.perfilService = perfilService;
     }
 
 
@@ -51,7 +53,7 @@ public class AdministradorService extends GenericDataService<Administrador, Long
         novoAdministrador.setCpf(dto.getCpf());
         novoAdministrador.setSenha(new BCryptPasswordEncoder().encode(dto.getSenha()));
         novoAdministrador.setDepartamento(departamentoService.getOne(dto.getDepartamento()));
-        novoAdministrador.setPerfil(dto.getPerfil().toUpperCase());
+        novoAdministrador.setPerfil(perfilService.getOne(1L));
 
         repository.save(novoAdministrador);
         return novoAdministrador;
@@ -87,9 +89,6 @@ public class AdministradorService extends GenericDataService<Administrador, Long
         }
         if (updateDTO.getDepartamento() != null) {
             atualizaAdministrador.setDepartamento(departamentoService.getOne(updateDTO.getDepartamento()));
-        }
-        if (updateDTO.getPerfil() != null) {
-            atualizaAdministrador.setPerfil(updateDTO.getPerfil().toUpperCase());
         }
 
         return repository.save(atualizaAdministrador);

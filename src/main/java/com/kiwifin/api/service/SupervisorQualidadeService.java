@@ -19,10 +19,12 @@ public class SupervisorQualidadeService extends GenericDataService<SupervisorQua
 
     private SupervisorQualidadeConversorService conversorService;
     private DepartamentoService departamentoService;
+    private PerfilService perfilService;
 
-    public SupervisorQualidadeService(SupervisorQualidadeConversorService conversorService, DepartamentoService departamentoService) {
+    public SupervisorQualidadeService(SupervisorQualidadeConversorService conversorService, DepartamentoService departamentoService, PerfilService perfilService) {
         this.conversorService = conversorService;
         this.departamentoService = departamentoService;
+        this.perfilService = perfilService;
     }
 
 
@@ -54,7 +56,7 @@ public class SupervisorQualidadeService extends GenericDataService<SupervisorQua
         novoSupervisor.setCpf(dto.getCpf());
         novoSupervisor.setSenha(new BCryptPasswordEncoder().encode(dto.getSenha()));
         novoSupervisor.setDepartamento(departamentoService.getOne(dto.getDepartamento()));
-        novoSupervisor.setPerfil(dto.getPerfil().toUpperCase());
+        novoSupervisor.setPerfil(perfilService.getOne(2L));
 
         repository.save(novoSupervisor);
         return novoSupervisor;
@@ -90,9 +92,6 @@ public class SupervisorQualidadeService extends GenericDataService<SupervisorQua
         }
         if (updateDTO.getDepartamento() != null) {
             atualizaSupervisor.setDepartamento(departamentoService.getOne(updateDTO.getDepartamento()));
-        }
-        if (updateDTO.getPerfil() != null) {
-            atualizaSupervisor.setPerfil(updateDTO.getPerfil().toUpperCase());
         }
 
         return repository.save(atualizaSupervisor);

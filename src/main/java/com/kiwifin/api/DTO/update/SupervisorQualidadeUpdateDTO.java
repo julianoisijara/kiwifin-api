@@ -1,5 +1,6 @@
 package com.kiwifin.api.DTO.update;
 
+import com.kiwifin.api.DTO.view.PerfilViewDTO;
 import com.kiwifin.api.entities.Departamento;
 
 import java.io.Serializable;
@@ -14,7 +15,6 @@ public class SupervisorQualidadeUpdateDTO implements Serializable {
     private String cpf;
     private String senha;
     private Long departamento;
-    private String perfil;
 
     public SupervisorQualidadeUpdateDTO() {
     }
@@ -61,13 +61,5 @@ public class SupervisorQualidadeUpdateDTO implements Serializable {
 
     public void setDepartamento(Long departamento) {
         this.departamento = departamento;
-    }
-
-    public String getPerfil() {
-        return perfil;
-    }
-
-    public void setPerfil(String perfil) {
-        this.perfil = perfil;
     }
 }

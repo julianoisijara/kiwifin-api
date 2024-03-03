@@ -24,6 +24,7 @@ public class Cliente implements Serializable {
     private String endereco;
     private String uf;
     private String complemento;
+    private Perfil perfil;
 
     public Cliente() {
 
@@ -141,6 +142,17 @@ public class Cliente implements Serializable {
     public void setComplemento(String complemento) {
         this.complemento = complemento;
     }
+
+    @OneToOne
+    @JoinColumn(name = "PERFIL", referencedColumnName = "ID_PERFIL")
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
+
 
     @Override
     public boolean equals(Object o) {
