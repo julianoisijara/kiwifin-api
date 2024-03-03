@@ -88,7 +88,7 @@ public class AdministradorController extends ApiController {
             @ApiResponse(code = 500, message = "Erro interno")
     }
     )
-    @PostMapping("/editar")
+    @PutMapping("/editar")
     public ResponseEntity<Object> editar(@RequestBody AdministradorUpdateDTO dto) {
         try {
             return ResponseEntity.ok(service.atualizarAdministrador(dto));
