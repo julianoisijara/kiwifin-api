@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SupervisorQualidadeRepository extends JpaRepository<SupervisorQualidade, Long> {
+
+    SupervisorQualidade findByCpfEquals(String cpf);
 }
