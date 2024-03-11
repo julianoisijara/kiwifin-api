@@ -13,29 +13,48 @@ public class Atendimento implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="ID_ATENDIMENTO")
     private Long idAtendimento;
+    @Column(name="PROTOCOLO", nullable = false)
     private String protocolo;
+    @Column(name="STATUS_ANDAMENTO", nullable = false)
     private String statusAndamento;
+    @Column(name="STATUS_PRAZO", nullable = false)
     private Long statusPrazo;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DATA_PROTOCOLO", length = 7, nullable = false)
     private Date dataProtocolo;
+    @Column(name="ASSUNTO", nullable = false)
     private String assunto;
+    @Column(name="DETALHAMENTO_SOLICITACAO", nullable = false)
     private String detalhamentoSolicitacao;
+    @Column(name="DETALHAMENTO_EMPRESA", nullable = false)
     private String detalhamentoEmpresa;
+    @Column(name="QUESTIONAMENTO_EMPRESA", nullable = false)
     private String questionamentoEmpresa;
+    @Column(name="RESPOSTA_QUESTIONAMENTO", nullable = false)
     private String respostaQuestionamento;
+    @OneToOne
+    @JoinColumn(name = "ID_MOTIVO", referencedColumnName = "ID_MOTIVO")
     private Motivo motivo;
+    @OneToOne
+    @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE")
     private Cliente cliente;
-    private Atendente atendente;
-    private SupervisorQualidade supervisorQualidade;
+    @OneToOne
+    @JoinColumn(name = "ID_ATENDENTE", referencedColumnName = "ID_COLABORADOR")
+    private Colaborador atendente;
+    @OneToOne
+    @JoinColumn(name = "ID_SUPERVISOR_QUALIDADE", referencedColumnName = "ID_COLABORADOR")
+    private Colaborador supervisorQualidade;
+    @OneToMany(mappedBy = "atendimento", cascade = CascadeType.ALL)
     private List<AtendimentoHistorico> historico;
 
     public Atendimento () {
     }
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="ID_ATENDIMENTO")
     public Long getIdAtendimento() {
         return idAtendimento;
     }
@@ -44,7 +63,6 @@ public class Atendimento implements Serializable {
         this.idAtendimento = idAtendimento;
     }
 
-    @Column(name="PROTOCOLO", nullable = false)
     public String getProtocolo() {
         return protocolo;
     }
@@ -53,7 +71,6 @@ public class Atendimento implements Serializable {
         this.protocolo = protocolo;
     }
 
-    @Column(name="STATUS_ANDAMENTO", nullable = false)
     public String getStatusAndamento() {
         return statusAndamento;
     }
@@ -62,7 +79,6 @@ public class Atendimento implements Serializable {
         this.statusAndamento = statusAndamento;
     }
 
-    @Column(name="STATUS_PRAZO", nullable = false)
     public Long getStatusPrazo() {
         return statusPrazo;
     }
@@ -71,8 +87,6 @@ public class Atendimento implements Serializable {
         this.statusPrazo = statusPrazo;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "DATA_PROTOCOLO", length = 7, nullable = false)
     public Date getDataProtocolo() {
         return dataProtocolo;
     }
@@ -81,7 +95,6 @@ public class Atendimento implements Serializable {
         this.dataProtocolo = dataProtocolo;
     }
 
-    @Column(name="ASSUNTO", nullable = false)
     public String getAssunto() {
         return assunto;
     }
@@ -90,7 +103,7 @@ public class Atendimento implements Serializable {
         this.assunto = assunto;
     }
 
-    @Column(name="DETALHAMENTO_SOLICITACAO", nullable = false)
+
     public String getDetalhamentoSolicitacao() {
         return detalhamentoSolicitacao;
     }
@@ -99,7 +112,7 @@ public class Atendimento implements Serializable {
         this.detalhamentoSolicitacao = detalhamentoSolicitacao;
     }
 
-    @Column(name="DETALHAMENTO_EMPRESA", nullable = false)
+
     public String getDetalhamentoEmpresa() {
         return detalhamentoEmpresa;
     }
@@ -108,7 +121,7 @@ public class Atendimento implements Serializable {
         this.detalhamentoEmpresa = detalhamentoEmpresa;
     }
 
-    @Column(name="QUESTIONAMENTO_EMPRESA", nullable = false)
+
     public String getQuestionamentoEmpresa() {
         return questionamentoEmpresa;
     }
@@ -117,7 +130,7 @@ public class Atendimento implements Serializable {
         this.questionamentoEmpresa = questionamentoEmpresa;
     }
 
-    @Column(name="RESPOSTA_QUESTIONAMENTO", nullable = false)
+
     public String getRespostaQuestionamento() {
         return respostaQuestionamento;
     }
@@ -126,8 +139,6 @@ public class Atendimento implements Serializable {
         this.respostaQuestionamento = respostaQuestionamento;
     }
 
-    @OneToOne
-    @JoinColumn(name = "ID_MOTIVO", referencedColumnName = "ID_MOTIVO")
     public Motivo getMotivo() {
         return motivo;
     }
@@ -136,8 +147,6 @@ public class Atendimento implements Serializable {
         this.motivo = motivo;
     }
 
-    @OneToOne
-    @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE")
     public Cliente getCliente() {
         return cliente;
     }
@@ -146,27 +155,25 @@ public class Atendimento implements Serializable {
         this.cliente = cliente;
     }
 
-    @OneToOne
-    @JoinColumn(name = "ID_ATENDENTE", referencedColumnName = "ID_COLABORADOR")
-    public Atendente getAtendente() {
+
+    public Colaborador getAtendente() {
         return atendente;
     }
 
-    public void setAtendente(Atendente atendente) {
+    public void setAtendente(Colaborador atendente) {
         this.atendente = atendente;
     }
 
-    @OneToOne
-    @JoinColumn(name = "ID_SUPERVISOR_QUALIDADE", referencedColumnName = "ID_COLABORADOR")
-    public SupervisorQualidade getSupervisorQualidade() {
+
+    public Colaborador getSupervisorQualidade() {
         return supervisorQualidade;
     }
 
-    public void setSupervisorQualidade(SupervisorQualidade supervisorQualidade) {
+    public void setSupervisorQualidade(Colaborador supervisorQualidade) {
         this.supervisorQualidade = supervisorQualidade;
     }
 
-    @OneToMany(mappedBy = "atendimento", cascade = CascadeType.ALL)
+
     public List<AtendimentoHistorico> getHistorico() {
         return historico;
     }

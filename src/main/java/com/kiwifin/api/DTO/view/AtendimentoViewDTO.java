@@ -21,8 +21,8 @@ public class AtendimentoViewDTO implements Serializable {
     private String respostaQuestionamento;
     private MotivoViewDTO motivo;
     private ClienteViewDTO cliente;
-    private AtendenteViewDTO atendente;
-    private SupervisorQualidadeViewDTO supervisorQualidade;
+    private ColaboradorViewDTO atendente;
+    private ColaboradorViewDTO supervisorQualidade;
     private List<AtendimentoHistoricoViewDTO> historico;
     
     public AtendimentoViewDTO () {}
@@ -123,19 +123,19 @@ public class AtendimentoViewDTO implements Serializable {
         this.cliente = cliente;
     }
 
-    public AtendenteViewDTO getAtendente() {
+    public ColaboradorViewDTO getAtendente() {
         return atendente;
     }
 
-    public void setAtendente(AtendenteViewDTO atendente) {
+    public void setAtendente(ColaboradorViewDTO atendente) {
         this.atendente = atendente;
     }
 
-    public SupervisorQualidadeViewDTO getSupervisorQualidade() {
+    public ColaboradorViewDTO getSupervisorQualidade() {
         return supervisorQualidade;
     }
 
-    public void setSupervisorQualidade(SupervisorQualidadeViewDTO supervisorQualidade) {
+    public void setSupervisorQualidade(ColaboradorViewDTO supervisorQualidade) {
         this.supervisorQualidade = supervisorQualidade;
     }
 

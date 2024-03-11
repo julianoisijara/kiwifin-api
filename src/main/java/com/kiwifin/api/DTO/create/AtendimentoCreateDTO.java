@@ -1,5 +1,6 @@
 package com.kiwifin.api.DTO.create;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kiwifin.api.dominio.AtendimentoEnum;
 
 import java.io.Serializable;
@@ -8,19 +9,27 @@ import java.util.Date;
 public class AtendimentoCreateDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    @JsonIgnore
     private String protocolo;
+    @JsonIgnore
     private AtendimentoEnum statusAndamento;
+    @JsonIgnore
     private Long statusPrazo;
+    @JsonIgnore
     private Date dataProtocolo;
     private String assunto;
     private String detalhamentoSolicitacao;
+    @JsonIgnore
     private String detalhamentoEmpresa;
+    @JsonIgnore
     private String questionamentoEmpresa;
+    @JsonIgnore
     private String respostaQuestionamento;
     private Long motivo;
     private Long cliente;
+    @JsonIgnore
     private Long atendente;
+    @JsonIgnore
     private Long supervisorQualidade;
 
     public AtendimentoCreateDTO(String assunto, String detalhamentoSolicitacao, Long motivo, Long cliente) {

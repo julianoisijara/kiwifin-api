@@ -12,18 +12,25 @@ public class AtendimentoHistorico implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="ID_ATENDIMENTO_HISTORICO")
     private  Long idAtendimentoHistorico;
+    @ManyToOne
+    @JoinColumn(name="ID_ATENDIMENTO", nullable = false)
     private Atendimento atendimento;
-    private Atendente atendente;
+    @OneToOne
+    @JoinColumn(name = "ID_ATENDENTE", referencedColumnName = "ID_COLABORADOR")
+    private Colaborador atendente;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DATA_ALTERACAO", length = 7, nullable = false)
     private Date dataAlteracao;
+    @Column(name="TEXTO_OBSEVACAO", nullable = false)
     private String textoObservacao;
 
     public AtendimentoHistorico() {}
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="ID_ATENDIMENTO_HISTORICO")
     public Long getIdAtendimentoHistorico() {
         return idAtendimentoHistorico;
     }
@@ -32,8 +39,6 @@ public class AtendimentoHistorico implements Serializable {
         this.idAtendimentoHistorico = idAtendimentoHistorico;
     }
 
-    @ManyToOne
-    @JoinColumn(name="ID_ATENDIMENTO", nullable = false)
     public Atendimento getAtendimento() {
         return atendimento;
     }
@@ -42,18 +47,14 @@ public class AtendimentoHistorico implements Serializable {
         this.atendimento = atendimento;
     }
 
-    @OneToOne
-    @JoinColumn(name = "ID_ATENDENTE", referencedColumnName = "ID_COLABORADOR")
-    public Atendente getAtendente() {
+    public Colaborador getAtendente() {
         return atendente;
     }
 
-    public void setAtendente(Atendente atendente) {
+    public void setAtendente(Colaborador atendente) {
         this.atendente = atendente;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "DATA_ALTERACAO", length = 7, nullable = false)
     public Date getDataAlteracao() {
         return dataAlteracao;
     }
@@ -62,7 +63,6 @@ public class AtendimentoHistorico implements Serializable {
         this.dataAlteracao = dataAlteracao;
     }
 
-    @Column(name="TEXTO_OBSEVACAO", nullable = false)
     public String getTextoObservacao() {
         return textoObservacao;
     }

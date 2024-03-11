@@ -9,7 +9,7 @@ public class AtendimentoHistoricoViewDTO implements Serializable {
 
     private  Long idAtendimentoHistorico;
     private AtendimentoViewDTO atendimento;
-    private AtendenteViewDTO atendente;
+    private ColaboradorViewDTO atendente;
     private Date dataAlteracao;
     private String textoObservacao;
 
@@ -31,11 +31,11 @@ public class AtendimentoHistoricoViewDTO implements Serializable {
         this.atendimento = atendimento;
     }
 
-    public AtendenteViewDTO getAtendente() {
+    public ColaboradorViewDTO getAtendente() {
         return atendente;
     }
 
-    public void setAtendente(AtendenteViewDTO atendente) {
+    public void setAtendente(ColaboradorViewDTO atendente) {
         this.atendente = atendente;
     }
 

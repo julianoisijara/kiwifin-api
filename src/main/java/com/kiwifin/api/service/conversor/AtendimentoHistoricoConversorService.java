@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class AtendimentoHistoricoConversorService extends GenericConversor<AtendimentoHistorico, AtendimentoHistoricoViewDTO> {
 
-    private final AtendenteConversorService atendenteConversorService;
+    private final ColaboradorConversorService colaboradorConversorService;
 
-    public AtendimentoHistoricoConversorService(AtendenteConversorService atendenteConversorService) {
-        this.atendenteConversorService = atendenteConversorService;
+    public AtendimentoHistoricoConversorService(ColaboradorConversorService colaboradorConversorService) {
+        this.colaboradorConversorService = colaboradorConversorService;
     }
 
     @Override
@@ -18,7 +18,7 @@ public class AtendimentoHistoricoConversorService extends GenericConversor<Atend
 
         AtendimentoHistoricoViewDTO dto = new AtendimentoHistoricoViewDTO();
         dto.setIdAtendimentoHistorico(atendimentoHistorico.getIdAtendimentoHistorico());
-        dto.setAtendente(atendimentoHistorico.getAtendente() != null ? atendenteConversorService.entity2Dto(atendimentoHistorico.getAtendente()) : null);
+        dto.setAtendente(atendimentoHistorico.getAtendente() != null ? colaboradorConversorService.entity2Dto(atendimentoHistorico.getAtendente()) : null);
         dto.setDataAlteracao(atendimentoHistorico.getDataAlteracao());
         dto.setTextoObservacao(atendimentoHistorico.getTextoObservacao());
 

@@ -25,17 +25,15 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
     private AtendimentoConversorService conversorService;
     private AtendimentoHistoricoService historicoService;
     private ClienteService clienteService;
-    private AtendenteService atendenteService;
-    private SupervisorQualidadeService supervisorQualidadeService;
+    private ColaboradorService colaboradorService;
     private MotivoService motivoService;
 
     @Autowired
-    public AtendimentoService(AtendimentoConversorService conversorService, AtendimentoHistoricoService historicoService, ClienteService clienteService, AtendenteService atendenteService, SupervisorQualidadeService supervisorQualidadeService, MotivoService motivoService) {
+    public AtendimentoService(AtendimentoConversorService conversorService, AtendimentoHistoricoService historicoService, ClienteService clienteService, ColaboradorService colaboradorService, MotivoService motivoService) {
         this.conversorService = conversorService;
         this.historicoService = historicoService;
         this.clienteService = clienteService;
-        this.atendenteService = atendenteService;
-        this.supervisorQualidadeService = supervisorQualidadeService;
+        this.colaboradorService = colaboradorService;
         this.motivoService = motivoService;
     }
 
@@ -82,7 +80,7 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
     }
 
     public AtendimentoViewDTO transferirMotivoPorAtendente(AtendimentoUpdateDTO updateDTO) {
-        return conversorService.entity2Dto(transferirMotivoAtendente(updateDTO));
+        return conversorService.entity2Dto(transferirMotivoColaborador(updateDTO));
     }
 
     public AtendimentoViewDTO transferirMotivoPorSupervisor(AtendimentoUpdateDTO updateDTO) {
@@ -140,7 +138,7 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
     public Atendimento supervisorAcompanharAtendimento(AtendimentoUpdateDTO updateDTO) {
         Atendimento atendimento = getOne(updateDTO.getIdAtendimento());
 
-        atendimento.setSupervisorQualidade(supervisorQualidadeService.getOne(updateDTO.getSupervisorQualidade()));
+        atendimento.setSupervisorQualidade(colaboradorService.getOne(updateDTO.getSupervisorQualidade()));
         repository.save(atendimento);
 
         AtendimentoHistorico novoHistorico = new AtendimentoHistorico();
@@ -157,7 +155,7 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
     public Atendimento assumirAtendimentoAtendente(AtendimentoUpdateDTO updateDTO) {
 
         Atendimento atendimento = getOne(updateDTO.getIdAtendimento());
-        atendimento.setAtendente(atendenteService.getOne(updateDTO.getAtendente()));
+        atendimento.setAtendente(colaboradorService.getOne(updateDTO.getAtendente()));
         atendimento.setStatusAndamento(AtendimentoEnum.EM_ATENDIMENTO.getSigla());
         repository.save(atendimento);
 
@@ -165,7 +163,7 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
         novoHistorico.setAtendimento(atendimento);
         novoHistorico.setAtendente(atendimento.getAtendente());
         novoHistorico.setDataAlteracao(new Date());
-        novoHistorico.setTextoObservacao("ATENDENTE " + atendimento.getAtendente().getIdColaborador() +  " CAPTUROU ATENDIMENTO");
+        novoHistorico.setTextoObservacao("Atendente " + atendimento.getAtendente().getIdColaborador() +  " CAPTUROU ATENDIMENTO");
         historicoService.incluir(novoHistorico);
 
         return atendimento;
@@ -184,7 +182,7 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
         novoHistorico.setAtendimento(atendimentoDetalhamentoEmpresa);
         novoHistorico.setAtendente(atendimentoDetalhamentoEmpresa.getAtendente());
         novoHistorico.setDataAlteracao(new Date());
-        novoHistorico.setTextoObservacao("FECHADO POR ATENDENTE: " + atendimentoDetalhamentoEmpresa.getAtendente().getIdColaborador() + " DETALHAMENTO: " + atendimentoDetalhamentoEmpresa.getDetalhamentoEmpresa());
+        novoHistorico.setTextoObservacao("FECHADO POR Atendente: " + atendimentoDetalhamentoEmpresa.getAtendente().getIdColaborador() + " DETALHAMENTO: " + atendimentoDetalhamentoEmpresa.getDetalhamentoEmpresa());
         historicoService.incluir(novoHistorico);
 
         return atendimentoDetalhamentoEmpresa;
@@ -248,7 +246,7 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
         return atendimentoRespostaQuestionamento;
     }
 
-    public Atendimento transferirMotivoAtendente(AtendimentoUpdateDTO updateDTO) {
+    public Atendimento transferirMotivoColaborador(AtendimentoUpdateDTO updateDTO) {
 
         Atendimento transferirAtendimento = getOne(updateDTO.getIdAtendimento());
         if (!transferirAtendimento.getStatusAndamento().equals(AtendimentoEnum.FECHADO.getSigla()) ||
@@ -263,7 +261,7 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
             AtendimentoHistorico novoHistorico = new AtendimentoHistorico();
             novoHistorico.setAtendimento(transferirAtendimento);
             novoHistorico.setDataAlteracao(new Date());
-            novoHistorico.setTextoObservacao("TRANFERÊNCIA ATENDIMENTO: ATENDENTE " + updateDTO.getAtendente() +
+            novoHistorico.setTextoObservacao("TRANFERÊNCIA ATENDIMENTO: Colaborador " + updateDTO.getAtendente() +
                     " TRANFERIU PARA MOTIVO " + transferirAtendimento.getMotivo().getIdMotivo() + " E DEPARTAMENTO " + transferirAtendimento.getMotivo().getDepartamento().getIdDepartamento() +
                     " JUSTIFICATIVA: " + updateDTO.getMsgServico());
 
@@ -278,7 +276,7 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
 
         Atendimento transferirAtendimento = getOne(updateDTO.getIdAtendimento());
         transferirAtendimento.setMotivo(motivoService.getOne(updateDTO.getMotivo()));
-        transferirAtendimento.setSupervisorQualidade(supervisorQualidadeService.getOne(updateDTO.getSupervisorQualidade()));
+        transferirAtendimento.setSupervisorQualidade(colaboradorService.getOne(updateDTO.getSupervisorQualidade()));
         transferirAtendimento.setAtendente(null);
         transferirAtendimento.setStatusAndamento(AtendimentoEnum.ABERTO.getSigla());
         repository.save(transferirAtendimento);

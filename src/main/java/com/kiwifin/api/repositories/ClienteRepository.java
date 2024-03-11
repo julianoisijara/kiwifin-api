@@ -10,7 +10,7 @@ import java.util.List;
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
     List<Cliente> findByNomeContains(String nome);
-
     List<Cliente> findByCpfEquals(String cpf);
+    Cliente findByNomeEquals(String nome);
 
 }

@@ -1,8 +1,9 @@
 package com.kiwifin.api.DTO.view;
 
 import java.io.Serializable;
+import java.util.List;
 
-public class AdministradorViewDTO implements Serializable {
+public class ColaboradorViewDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -12,9 +13,9 @@ public class AdministradorViewDTO implements Serializable {
     private String cpf;
     private String senha;
     private DepartamentoViewDTO departamento;
-    private PerfilViewDTO perfil;
+    private List<PerfilViewDTO> perfil;
 
-    public AdministradorViewDTO() {
+    public ColaboradorViewDTO() {
     }
 
     public Long getIdColaborador() {
@@ -65,11 +66,11 @@ public class AdministradorViewDTO implements Serializable {
         this.departamento = departamento;
     }
 
-    public PerfilViewDTO getPerfil() {
+    public List<PerfilViewDTO> getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(PerfilViewDTO perfil) {
+    public void setPerfil(List<PerfilViewDTO> perfil) {
         this.perfil = perfil;
     }
 }

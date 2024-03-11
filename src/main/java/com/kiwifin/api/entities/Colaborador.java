@@ -1,101 +1,97 @@
 package com.kiwifin.api.entities;
 
 import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
-@MappedSuperclass
-public abstract class Colaborador implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "ID_COLABORADOR")
+@Table(name="COLABORADOR", schema = "KIWIFIN")
+public class Colaborador implements UserDetails {
 
-
-    protected Long idColaborador;
-    protected String nome;
-    protected String email;
-    protected String cpf;
-    protected String senha;
-    protected Departamento departamento;
-    protected Perfil perfil;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID_COLABORADOR")
-    public Long getIdColaborador() {
-        return idColaborador;
-    }
-
-    public void setIdColaborador(Long idColaborador) {
-        this.idColaborador = idColaborador;
-    }
-
+    protected Long idColaborador;
     @Column(name="NOME", nullable = false)
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
+    protected String nome;
     @Column(name="EMAIL", nullable = false)
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Column(name="CPF", nullable = false, length = 11)
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
+    protected String email;
+    @Column(name="CPF", unique = true, nullable = false, length = 11)
+    protected String cpf;
     @Column(name="SENHA", nullable = false)
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
+    protected String senha;
     @OneToOne
     @JoinColumn(name = "ID_DEPARTAMENTO", referencedColumnName = "ID_DEPARTAMENTO")
-    public Departamento getDepartamento() {
-        return departamento;
-    }
+    protected Departamento departamento;
+    @Column(name="ACCOUNT_NON_EXPIRED")
+    private Boolean accountNonExpired;
+    @Column(name="ACCOUNT_NON_LOCKED")
+    private Boolean accountNonLocked;
+    @Column(name="CREDENTIALS_NON_EXPIRED")
+    private Boolean credentialsNonExpired;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(schema = "KIWIFIN", name = "COLABORADOR_PERFIL", joinColumns = {@JoinColumn (name = "ID_COLABORADOR_PERFIL")},
+        inverseJoinColumns = {@JoinColumn (name = "ID_PERFIL")}
+    )
+    protected List<Perfil> listaPerfis;
 
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
-    }
+//    public List<String> getRoles() {
+//        List<String> roles = new ArrayList<>();
+//        for(Perfil perfil : listaPerfis) {
+//            roles.add(perfil.getDescricao());
+//
+//        }
+//        return roles;
+//    }
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "PERFIL", referencedColumnName = "ID_PERFIL")
-    public Perfil getPerfil() {
-        return perfil;
-    }
 
-    public void setPerfil(Perfil perfil) {
-        this.perfil = perfil;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return List.of(new SimpleGrantedAuthority("CLIENTE"));
+        return this.listaPerfis;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Colaborador that = (Colaborador) o;
-        return idColaborador.equals(that.idColaborador);
+    public String getPassword() {
+        return this.senha;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(idColaborador);
+    public String getUsername() {
+        return this.nome;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

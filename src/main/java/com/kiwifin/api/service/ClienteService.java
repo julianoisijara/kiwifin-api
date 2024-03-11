@@ -9,6 +9,9 @@ import com.kiwifin.api.service.conversor.ClienteConversorService;
 import com.kiwifin.api.service.data.GenericBusinessService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ClienteService extends GenericBusinessService<ClienteConversorService, ClienteRepository> {
+public class ClienteService extends GenericBusinessService<ClienteConversorService, ClienteRepository>  {
 
 
     private static final Logger logger = LogManager.getLogger(ClienteService.class);

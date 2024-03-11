@@ -4,23 +4,20 @@ import com.kiwifin.api.DTO.view.AtendimentoViewDTO;
 import com.kiwifin.api.dominio.AtendimentoEnum;
 import com.kiwifin.api.entities.Atendimento;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AtendimentoConversorService extends GenericConversor<Atendimento, AtendimentoViewDTO>{
 
     private final ClienteConversorService clienteConversorService;
-    private final AtendenteConversorService atendenteConversorService;
-    private final SupervisorQualidadeConversorService supervisorQualidadeConversorService;
+    private final ColaboradorConversorService colaboradorConversorService;
     private final MotivoConversorService motivoConversorService;
     private final AtendimentoHistoricoConversorService historicoConversorService;
 
     @Autowired
-    public AtendimentoConversorService(ClienteConversorService clienteConversorService, AtendenteConversorService atendenteConversorService, SupervisorQualidadeConversorService supervisorQualidadeConversorService, MotivoConversorService motivoConversorService, AtendimentoHistoricoConversorService historicoConversorService) {
+    public AtendimentoConversorService(ClienteConversorService clienteConversorService, ColaboradorConversorService colaboradorConversorService, MotivoConversorService motivoConversorService, AtendimentoHistoricoConversorService historicoConversorService) {
         this.clienteConversorService = clienteConversorService;
-        this.atendenteConversorService = atendenteConversorService;
-        this.supervisorQualidadeConversorService = supervisorQualidadeConversorService;
+        this.colaboradorConversorService = colaboradorConversorService;
         this.motivoConversorService = motivoConversorService;
         this.historicoConversorService = historicoConversorService;
     }
@@ -42,8 +39,8 @@ public class AtendimentoConversorService extends GenericConversor<Atendimento, A
         dto.setRespostaQuestionamento(atendimento.getRespostaQuestionamento());
         dto.setMotivo(motivoConversorService.entity2Dto(atendimento.getMotivo()));
         dto.setCliente(clienteConversorService.entity2Dto(atendimento.getCliente()));
-        dto.setAtendente(atendimento.getAtendente() != null ? atendenteConversorService.entity2Dto(atendimento.getAtendente()) : null);
-        dto.setSupervisorQualidade(atendimento.getSupervisorQualidade() != null ? supervisorQualidadeConversorService.entity2Dto(atendimento.getSupervisorQualidade()) : null);
+        dto.setAtendente(atendimento.getAtendente() != null ? colaboradorConversorService.entity2Dto(atendimento.getAtendente()) : null);
+        dto.setSupervisorQualidade(atendimento.getSupervisorQualidade() != null ? colaboradorConversorService.entity2Dto(atendimento.getSupervisorQualidade()) : null);
         dto.setHistorico(historicoConversorService.entityList2DtoList(atendimento.getHistorico()));
         
         return dto;

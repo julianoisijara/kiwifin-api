@@ -1,7 +1,5 @@
 package com.kiwifin.api.repositories;
 
-import com.kiwifin.api.entities.Atendente;
-import com.kiwifin.api.entities.Atendimento;
 import com.kiwifin.api.entities.AtendimentoHistorico;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

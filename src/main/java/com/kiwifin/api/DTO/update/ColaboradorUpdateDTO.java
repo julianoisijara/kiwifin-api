@@ -5,7 +5,7 @@ import com.kiwifin.api.entities.Departamento;
 
 import java.io.Serializable;
 
-public class SupervisorQualidadeUpdateDTO implements Serializable {
+public class ColaboradorUpdateDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -15,8 +15,10 @@ public class SupervisorQualidadeUpdateDTO implements Serializable {
     private String cpf;
     private String senha;
     private Long departamento;
+    private Long perfil;
 
-    public SupervisorQualidadeUpdateDTO() {
+    public ColaboradorUpdateDTO() {
+
     }
 
     public Long getIdColaborador() {
@@ -61,5 +63,13 @@ public class SupervisorQualidadeUpdateDTO implements Serializable {
 
     public void setDepartamento(Long departamento) {
         this.departamento = departamento;
+    }
+
+    public Long getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Long perfil) {
+        this.perfil = perfil;
     }
 }

@@ -18,7 +18,6 @@ public class AtendimentoController extends ApiController{
 
     AtendimentoService service;
 
-    @Autowired
     public AtendimentoController(AtendimentoService service) {
         this.service = service;
     }
