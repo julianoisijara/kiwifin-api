@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,10 +27,12 @@ public class ClienteService extends GenericBusinessService<ClienteConversorServi
     private static final Logger logger = LogManager.getLogger(ClienteService.class);
 
     private PerfilService perfilService;
+    private PasswordEncoder encoder;
 
 
-    public ClienteService(PerfilService perfilService) {
+    public ClienteService(PerfilService perfilService, PasswordEncoder encoder) {
         this.perfilService = perfilService;
+        this.encoder = encoder;
     }
 
 
@@ -50,7 +53,21 @@ public class ClienteService extends GenericBusinessService<ClienteConversorServi
         return conversorService.entityList2DtoList(pesquisarTodosClientes());
     }
 
+    public ClienteViewDTO autenticaCliente(String cpf, String senha) {
+        ClienteViewDTO clienteAutenticado = new ClienteViewDTO();
 
+        Cliente cliente = pesquisarClientes(null, cpf, null).get(0);
+        if (encoder.matches(senha, cliente.getSenha())) {
+            clienteAutenticado = conversorService.entity2Dto(cliente);
+            clienteAutenticado.setAutenticado(encoder.matches(senha, cliente.getSenha()));
+        } else {
+            clienteAutenticado.setCpf(cpf);
+            clienteAutenticado.setMsgServico("CPF ou Senha inválidos.");
+        }
+
+        return clienteAutenticado;
+
+    }
 
 
     public List<Cliente> pesquisarTodosClientes() {

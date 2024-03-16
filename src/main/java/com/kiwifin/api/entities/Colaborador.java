@@ -3,13 +3,11 @@ package com.kiwifin.api.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 
 @Entity
@@ -37,31 +35,23 @@ public class Colaborador implements UserDetails {
     @OneToOne
     @JoinColumn(name = "ID_DEPARTAMENTO", referencedColumnName = "ID_DEPARTAMENTO")
     protected Departamento departamento;
-    @Column(name="ACCOUNT_NON_EXPIRED")
-    private Boolean accountNonExpired;
-    @Column(name="ACCOUNT_NON_LOCKED")
-    private Boolean accountNonLocked;
-    @Column(name="CREDENTIALS_NON_EXPIRED")
-    private Boolean credentialsNonExpired;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(schema = "KIWIFIN", name = "COLABORADOR_PERFIL", joinColumns = {@JoinColumn (name = "ID_COLABORADOR_PERFIL")},
         inverseJoinColumns = {@JoinColumn (name = "ID_PERFIL")}
     )
     protected List<Perfil> listaPerfis;
 
-//    public List<String> getRoles() {
-//        List<String> roles = new ArrayList<>();
-//        for(Perfil perfil : listaPerfis) {
-//            roles.add(perfil.getDescricao());
-//
-//        }
-//        return roles;
-//    }
+    public List<String> getRoles() {
+        List<String> roles = new ArrayList<>();
+        for(Perfil perfil : listaPerfis) {
+            roles.add(perfil.getDescricao());
+        }
+        return roles;
+    }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return List.of(new SimpleGrantedAuthority("CLIENTE"));
         return this.listaPerfis;
     }
 

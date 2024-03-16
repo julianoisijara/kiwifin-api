@@ -30,8 +30,8 @@ public class ColaboradorService extends GenericDataService<Colaborador, Long, Co
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByNomeEquals(username);
+    public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
+        return repository.findByCpfEquals(cpf);
     }
 
     public ColaboradorViewDTO incluirColaborador(ColaboradorCreateDTO ColaboradorCreateDTO) {
@@ -59,8 +59,9 @@ public class ColaboradorService extends GenericDataService<Colaborador, Long, Co
         novoColaborador.setCpf(dto.getCpf());
         novoColaborador.setSenha(new BCryptPasswordEncoder().encode(dto.getSenha()));
         novoColaborador.setDepartamento(departamentoService.getOne(dto.getDepartamento()));
-
+        novoColaborador.setListaPerfis(perfilService.getListaPerfil(dto.getPerfil()));
         repository.save(novoColaborador);
+
         return novoColaborador;
     }
 
@@ -94,6 +95,9 @@ public class ColaboradorService extends GenericDataService<Colaborador, Long, Co
         }
         if (updateDTO.getDepartamento() != null) {
             atualizaColaborador.setDepartamento(departamentoService.getOne(updateDTO.getDepartamento()));
+        }
+        if (updateDTO.getPerfil() != null) {
+            atualizaColaborador.setListaPerfis(perfilService.getListaPerfil(updateDTO.getPerfil()));
         }
 
         return repository.save(atualizaColaborador);

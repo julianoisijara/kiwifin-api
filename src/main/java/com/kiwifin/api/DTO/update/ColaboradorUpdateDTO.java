@@ -4,6 +4,7 @@ import com.kiwifin.api.DTO.view.PerfilViewDTO;
 import com.kiwifin.api.entities.Departamento;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ColaboradorUpdateDTO implements Serializable {
 
@@ -15,7 +16,7 @@ public class ColaboradorUpdateDTO implements Serializable {
     private String cpf;
     private String senha;
     private Long departamento;
-    private Long perfil;
+    private List<Long> perfil;
 
     public ColaboradorUpdateDTO() {
 
@@ -65,11 +66,11 @@ public class ColaboradorUpdateDTO implements Serializable {
         this.departamento = departamento;
     }
 
-    public Long getPerfil() {
+    public List<Long> getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(Long perfil) {
+    public void setPerfil(List<Long> perfil) {
         this.perfil = perfil;
     }
 }

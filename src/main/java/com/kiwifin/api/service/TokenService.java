@@ -12,21 +12,22 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Date;
 
 @Service
 public class TokenService {
-    @Value("${api.security.token.secret}")
-//    @Value("${security.jwt.token.secret-key:secret}")
-    private String secret = "secret";
-//    @Value("${security.jwt.token.expire-lenght:3600000}")
-//    private long validtyInMilliseconds = 3600000;
+
+    @Value("${security.jwt.token.secret-key:secret}")
+    private String secret;
 
     public String gerarToken(Colaborador colaborador) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
                     .withIssuer("autenticacao-api")
-                    .withSubject(colaborador.getUsername())
+                    .withSubject(colaborador.getCpf())
+                    .withClaim("perfil", colaborador.getRoles())
+                    .withIssuedAt(new Date())
                     .withExpiresAt(dataExpiracao())
                     .sign(algorithm);
 
@@ -50,7 +51,8 @@ public class TokenService {
         }
     }
 
+
     private Instant dataExpiracao() {
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusHours(8).toInstant(ZoneOffset.of("-03:00"));
     }
 }

@@ -1,5 +1,7 @@
 package com.kiwifin.api.DTO.view;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,6 +13,7 @@ public class ColaboradorViewDTO implements Serializable {
     private String nome;
     private String email;
     private String cpf;
+    @JsonIgnore
     private String senha;
     private DepartamentoViewDTO departamento;
     private List<PerfilViewDTO> perfil;

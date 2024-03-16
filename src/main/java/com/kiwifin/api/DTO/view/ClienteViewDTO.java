@@ -1,9 +1,12 @@
 package com.kiwifin.api.DTO.view;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kiwifin.api.DTO.base.BaseDTO;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class ClienteViewDTO implements Serializable {
+public class ClienteViewDTO extends BaseDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -11,6 +14,7 @@ public class ClienteViewDTO implements Serializable {
     private String nome;
     private String email;
     private String cpf;
+    @JsonIgnore
     private String senha;
     private Date dataNascimento;
     private String celular;
@@ -20,6 +24,7 @@ public class ClienteViewDTO implements Serializable {
     private String uf;
     private String complemento;
     private PerfilViewDTO perfil;
+    private Boolean autenticado;
 
     public ClienteViewDTO() {
     }
@@ -126,5 +131,13 @@ public class ClienteViewDTO implements Serializable {
 
     public void setPerfil(PerfilViewDTO perfil) {
         this.perfil = perfil;
+    }
+
+    public Boolean getAutenticado() {
+        return autenticado;
+    }
+
+    public void setAutenticado(Boolean autenticado) {
+        this.autenticado = autenticado;
     }
 }

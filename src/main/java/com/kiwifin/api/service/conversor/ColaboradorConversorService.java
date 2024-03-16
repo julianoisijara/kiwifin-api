@@ -25,7 +25,7 @@ public class ColaboradorConversorService extends GenericConversor<Colaborador, C
         dto.setEmail(colaborador.getEmail());
         dto.setCpf(colaborador.getCpf());
         dto.setDepartamento(departamentoConversorService.entity2Dto(colaborador.getDepartamento()));
-//        dto.setPerfil(perfilConversorService.entityList2DtoList(colaborador.getListaPerfis()));
+        dto.setPerfil(perfilConversorService.entityList2DtoList(colaborador.getListaPerfis()));
 
         return dto;
     }

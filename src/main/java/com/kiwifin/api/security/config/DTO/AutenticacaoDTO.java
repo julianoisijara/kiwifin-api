@@ -1,4 +1,4 @@
 package com.kiwifin.api.security.config.DTO;
 
-public record AutenticacaoDTO(String login, String password) {
+public record AutenticacaoDTO(String cpf, String password) {
 }
