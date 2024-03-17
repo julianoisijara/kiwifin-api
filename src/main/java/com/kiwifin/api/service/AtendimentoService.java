@@ -161,7 +161,7 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
         novoHistorico.setAtendimento(atendimento);
         novoHistorico.setAtendente(atendimento.getAtendente());
         novoHistorico.setDataAlteracao(new Date());
-        novoHistorico.setTextoObservacao("SUPERVIROR " + atendimento.getSupervisorQualidade().getIdColaborador() +  " ACOMPANHA ATENDIMENTO");
+        novoHistorico.setTextoObservacao("SUPERVIROR ID " + atendimento.getSupervisorQualidade().getIdColaborador() +  " ACOMPANHA ATENDIMENTO");
         historicoService.incluir(novoHistorico);
 
         return atendimento;
@@ -179,7 +179,7 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
         novoHistorico.setAtendimento(atendimento);
         novoHistorico.setAtendente(atendimento.getAtendente());
         novoHistorico.setDataAlteracao(new Date());
-        novoHistorico.setTextoObservacao("Atendente " + atendimento.getAtendente().getIdColaborador() +  " CAPTUROU ATENDIMENTO");
+        novoHistorico.setTextoObservacao("ATENDENTE ID " + atendimento.getAtendente().getIdColaborador() +  " CAPTUROU ATENDIMENTO");
         historicoService.incluir(novoHistorico);
 
         return atendimento;
@@ -277,7 +277,7 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
             AtendimentoHistorico novoHistorico = new AtendimentoHistorico();
             novoHistorico.setAtendimento(transferirAtendimento);
             novoHistorico.setDataAlteracao(new Date());
-            novoHistorico.setTextoObservacao("TRANFERÊNCIA ATENDIMENTO: Colaborador " + updateDTO.getAtendente() +
+            novoHistorico.setTextoObservacao("TRANFERÊNCIA ATENDIMENTO: Colaborador ID " + updateDTO.getAtendente() +
                     " TRANFERIU PARA MOTIVO " + transferirAtendimento.getMotivo().getIdMotivo() + " E DEPARTAMENTO " + transferirAtendimento.getMotivo().getDepartamento().getIdDepartamento() +
                     " JUSTIFICATIVA: " + updateDTO.getMsgServico());
 
@@ -300,7 +300,7 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
         AtendimentoHistorico novoHistorico = new AtendimentoHistorico();
         novoHistorico.setAtendimento(transferirAtendimento);
         novoHistorico.setDataAlteracao(new Date());
-        novoHistorico.setTextoObservacao("TRANFERÊNCIA ATENDIMENTO: SUPERVISOR " + updateDTO.getSupervisorQualidade() +
+        novoHistorico.setTextoObservacao("TRANFERÊNCIA ATENDIMENTO: SUPERVISOR ID " + updateDTO.getSupervisorQualidade() +
                 " TRANFERIU PARA MOTIVO " + transferirAtendimento.getMotivo().getIdMotivo() + " E DEPARTAMENTO " + transferirAtendimento.getMotivo().getDepartamento().getIdDepartamento() +
                 " JUSTIFICATIVA: " + updateDTO.getMsgServico());
 
