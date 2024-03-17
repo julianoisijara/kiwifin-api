@@ -1,5 +1,6 @@
 package com.kiwifin.api.controllers;
 
+import com.itextpdf.text.DocumentException;
 import com.kiwifin.api.DTO.create.AtendimentoCreateDTO;
 import com.kiwifin.api.DTO.update.AtendimentoUpdateDTO;
 import com.kiwifin.api.DTO.view.AtendimentoViewDTO;
@@ -7,9 +8,16 @@ import com.kiwifin.api.service.AtendimentoService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/atendimento")
@@ -256,6 +264,52 @@ public class AtendimentoController extends ApiController{
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @ApiOperation(value = "Exporta atendimentos PDF.", notes = "Exporta atendimentos PDF.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Atendimento exportado"),
+            @ApiResponse(code = 204, message = "Nenhum atendimento exportado"),
+            @ApiResponse(code = 400, message = "Chamada incorreta do serviço"),
+            @ApiResponse(code = 500, message = "Erro interno")
+    }
+    )
+    @GetMapping("/exportar/pdf/{id}")
+    public ResponseEntity<byte[]> exportarAtendimentosPdf(@PathVariable("id") List<Long> id) throws DocumentException {
+
+
+        byte[] atdPfd = service.exportarAtendimentosPDF(id);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        Date dataHoraAtual = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyyMMddHHmmss");
+        headers.setContentDispositionFormData("attachment", "atendimentos"+ formato.format(dataHoraAtual) +".pdf");
+
+        return new ResponseEntity<>(atdPfd, headers, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Exporta atendimentos xlsx.", notes = "Exporta atendimentos xlsx.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Atendimento exportado"),
+            @ApiResponse(code = 204, message = "Nenhum atendimento exportado"),
+            @ApiResponse(code = 400, message = "Chamada incorreta do serviço"),
+            @ApiResponse(code = 500, message = "Erro interno")
+    }
+    )
+    @GetMapping("/exportar/xlsx/{id}")
+    public ResponseEntity<byte[]> exportarAtendimentosExcel(@PathVariable("id") List<Long> id) throws IOException {
+
+
+        byte[] atdxlsx = service.exportarParaExcel(id);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        Date dataHoraAtual = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyyMMddHHmmss");
+        headers.setContentDispositionFormData("attachment", "atendimentos"+ formato.format(dataHoraAtual) +".xlsx");
+
+        return new ResponseEntity<>(atdxlsx, headers, HttpStatus.OK);
     }
 
 
