@@ -4,7 +4,6 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfName;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -104,6 +103,10 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
         return conversorService.entity2Dto(encerrarAtendimento(updateDTO));
     }
 
+    public AtendimentoViewDTO qualificarAtendimento(AtendimentoUpdateDTO updateDTO) {
+        return conversorService.entity2Dto(avaliarAtendimento(updateDTO));
+    }
+
 
     public Atendimento pesquisarPorId(Long id) {
         return getOne(id);
@@ -198,7 +201,7 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
         novoHistorico.setAtendimento(atendimentoDetalhamentoEmpresa);
         novoHistorico.setAtendente(atendimentoDetalhamentoEmpresa.getAtendente());
         novoHistorico.setDataAlteracao(new Date());
-        novoHistorico.setTextoObservacao("FECHADO POR Atendente: " + atendimentoDetalhamentoEmpresa.getAtendente().getIdColaborador() + " DETALHAMENTO: " + atendimentoDetalhamentoEmpresa.getDetalhamentoEmpresa());
+        novoHistorico.setTextoObservacao("FECHADO POR ATENDENTE: " + atendimentoDetalhamentoEmpresa.getAtendente().getIdColaborador() + " DETALHAMENTO: " + atendimentoDetalhamentoEmpresa.getDetalhamentoEmpresa());
         historicoService.incluir(novoHistorico);
 
         return atendimentoDetalhamentoEmpresa;
@@ -325,6 +328,22 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
         }
 
         return atendimentoEncerramento;
+    }
+
+    public Atendimento avaliarAtendimento(AtendimentoUpdateDTO updateDTO) {
+        Atendimento atendimentoAvaliacao = getOne(updateDTO.getIdAtendimento());
+
+        if (atendimentoAvaliacao.getStatusAndamento().equals(AtendimentoEnum.ENCERRADO.getSigla()) || atendimentoAvaliacao.getStatusAndamento().equals(AtendimentoEnum.FECHADO.getSigla())) {
+
+            AtendimentoHistorico novoHistorico = new AtendimentoHistorico();
+            novoHistorico.setAtendimento(atendimentoAvaliacao);
+            novoHistorico.setAtendente(atendimentoAvaliacao.getAtendente());
+            novoHistorico.setDataAlteracao(new Date());
+            novoHistorico.setTextoObservacao("AVALIAÇÃO ATENDIMENTO " + AtendimentoEnum.getSigla(atendimentoAvaliacao.getStatusAndamento()) + " " + updateDTO.getMsgServico());
+            historicoService.incluir(novoHistorico);
+        }
+
+        return atendimentoAvaliacao;
     }
 
     public byte[] exportarAtendimentosPDF(List<Long> idAtendimentos) throws DocumentException {

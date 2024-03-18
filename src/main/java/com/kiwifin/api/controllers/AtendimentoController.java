@@ -248,6 +248,7 @@ public class AtendimentoController extends ApiController{
         }
     }
 
+
     @ApiOperation(value = "Encerrar atendimento.", notes = "Encerrar atendimento.", response = AtendimentoViewDTO.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Atendimento encerrado"),
@@ -260,6 +261,24 @@ public class AtendimentoController extends ApiController{
     public ResponseEntity<Object> encerrarAtendimento(@RequestBody AtendimentoUpdateDTO dto) {
         try {
             return ResponseEntity.ok(service.finalizarAtendimento(dto));
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @ApiOperation(value = "Avaliar atendimento.", notes = "Avaliar atendimento.", response = AtendimentoViewDTO.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Atendimento Avaliar"),
+            @ApiResponse(code = 204, message = "Nenhum atendimento Avaliar"),
+            @ApiResponse(code = 400, message = "Chamada incorreta do serviço"),
+            @ApiResponse(code = 500, message = "Erro interno")
+    }
+    )
+    @PutMapping(value = "/avaliar")
+    public ResponseEntity<Object> avaliarAtendimento(@RequestBody AtendimentoUpdateDTO dto) {
+        try {
+            return ResponseEntity.ok(service.qualificarAtendimento(dto));
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
