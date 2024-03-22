@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DepartamentoService extends GenericDataService<Departamento, Long, DepartamentoRepository> {
@@ -124,6 +125,18 @@ public class DepartamentoService extends GenericDataService<Departamento, Long, 
 
         } catch (Exception e) {
             logger.error("Erro ao deletar departamento: " + departamento.getIdDepartamento() + "MSG: " + e.getMessage());
+        }
+    }
+
+    public void criarDepartamentoAdm() {
+        Optional<Departamento> departamento = findById(1L);
+        if (!departamento.isPresent()) {
+            Departamento depADM = new Departamento();
+
+            depADM.setNome("ADMINISTRAÇÃO");
+            depADM.setStatus(true);
+
+            save(depADM);
         }
     }
 

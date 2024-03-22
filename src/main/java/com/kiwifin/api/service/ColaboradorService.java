@@ -14,7 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ColaboradorService extends GenericDataService<Colaborador, Long, ColaboradorRepository> implements UserDetailsService {
@@ -105,6 +107,22 @@ public class ColaboradorService extends GenericDataService<Colaborador, Long, Co
 
     public void excluirColaborador(Colaborador Colaborador) {
         repository.deleteById(Colaborador.getIdColaborador());
+    }
+
+    public void criarNovoAdm() {
+        Optional<Colaborador> colaborador = findById(1L);
+        if (!colaborador.isPresent()) {
+            Colaborador colaboradorADM = new Colaborador();
+
+            colaboradorADM.setNome("ADM");
+            colaboradorADM.setEmail("adm@kiwifin.br");
+            colaboradorADM.setCpf("11111111111");
+            colaboradorADM.setSenha(new BCryptPasswordEncoder().encode("adm123"));
+            colaboradorADM.setDepartamento(departamentoService.getOne(1L));
+            colaboradorADM.setListaPerfis(perfilService.getListaPerfil(Collections.singletonList(1L)));
+
+            save(colaboradorADM);
+        }
     }
 
 
