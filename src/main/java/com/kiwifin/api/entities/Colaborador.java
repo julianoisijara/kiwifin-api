@@ -62,7 +62,7 @@ public class Colaborador implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.nome;
+        return this.cpf;
     }
 
     @Override
