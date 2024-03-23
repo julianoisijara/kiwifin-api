@@ -3,7 +3,7 @@ package com.kiwifin.api.controllers;
 import com.kiwifin.api.entities.Colaborador;
 import com.kiwifin.api.security.config.DTO.LoginResponseDTO;
 import com.kiwifin.api.service.ClienteService;
-import com.kiwifin.api.service.TokenService;
+import com.kiwifin.api.security.config.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

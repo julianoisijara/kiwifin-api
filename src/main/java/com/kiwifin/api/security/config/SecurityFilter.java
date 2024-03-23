@@ -4,7 +4,6 @@ package com.kiwifin.api.security.config;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.kiwifin.api.repositories.ColaboradorRepository;
-import com.kiwifin.api.service.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

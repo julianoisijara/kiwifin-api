@@ -1,4 +1,4 @@
-package com.kiwifin.api.service;
+package com.kiwifin.api.security.config;
 
 
 import com.auth0.jwt.JWT;
