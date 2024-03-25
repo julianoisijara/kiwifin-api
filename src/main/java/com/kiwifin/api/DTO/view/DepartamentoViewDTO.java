@@ -1,6 +1,7 @@
 package com.kiwifin.api.DTO.view;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class DepartamentoViewDTO implements Serializable {
 
@@ -9,6 +10,7 @@ public class DepartamentoViewDTO implements Serializable {
     private Long idDepartamento;
     private String nome;
     private Boolean status;
+    private List<MotivoViewDTO> motivoViewDTO;
 
     public DepartamentoViewDTO() {
     }
@@ -35,5 +37,13 @@ public class DepartamentoViewDTO implements Serializable {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public List<MotivoViewDTO> getMotivoViewDTO() {
+        return motivoViewDTO;
+    }
+
+    public void setMotivoViewDTO(List<MotivoViewDTO> motivoViewDTO) {
+        this.motivoViewDTO = motivoViewDTO;
     }
 }

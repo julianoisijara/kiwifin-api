@@ -59,8 +59,8 @@ public class Motivo implements Serializable {
         this.prazo = prazo;
     }
 
-    @OneToOne
-    @JoinColumn(name = "ID_DEPARTAMENTO", referencedColumnName = "ID_DEPARTAMENTO")
+    @ManyToOne
+    @JoinColumn(name = "ID_DEPARTAMENTO")
     public Departamento getDepartamento() {
         return departamento;
     }

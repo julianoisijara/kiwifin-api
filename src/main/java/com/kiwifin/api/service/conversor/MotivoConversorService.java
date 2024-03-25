@@ -2,15 +2,16 @@ package com.kiwifin.api.service.conversor;
 
 import com.kiwifin.api.DTO.view.MotivoViewDTO;
 import com.kiwifin.api.entities.Motivo;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MotivoConversorService extends GenericConversor<Motivo, MotivoViewDTO>{
 
-    private final DepartamentoConversorService conversorService;
+    private DepConversorService depConversorService;
 
-    public MotivoConversorService(DepartamentoConversorService conversorService) {
-        this.conversorService = conversorService;
+    public MotivoConversorService(DepConversorService depConversorService) {
+        this.depConversorService = depConversorService;
     }
 
     @Override
@@ -22,7 +23,7 @@ public class MotivoConversorService extends GenericConversor<Motivo, MotivoViewD
         dto.setNome(motivo.getNome());
         dto.setStatus(motivo.getStatus());
         dto.setPrazo(motivo.getPrazo());
-        dto.setDepartamento(conversorService.entity2Dto(motivo.getDepartamento()));
+        dto.setDepartamento(depConversorService.entity2Dto(motivo.getDepartamento()));
 
         return dto;
     }
