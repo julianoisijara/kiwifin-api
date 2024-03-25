@@ -4,6 +4,7 @@ package com.kiwifin.api.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +16,7 @@ public class Departamento implements Serializable {
     private Long idDepartamento;
     private String nome;
     private Boolean status;
+    private List<Motivo> motivos;
 
     public Departamento() {
     }
@@ -46,6 +48,15 @@ public class Departamento implements Serializable {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    @OneToMany(mappedBy = "departamento")
+    public List<Motivo> getMotivos() {
+        return motivos;
+    }
+
+    public void setMotivos(List<Motivo> motivos) {
+        this.motivos = motivos;
     }
 
     @Override
