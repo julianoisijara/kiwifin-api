@@ -39,6 +39,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.DELETE, "/api/departamento/deletar/**").hasAuthority("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.PUT, "/api/departamento/editar").hasAuthority("ADMINISTRADOR")
                         .requestMatchers( "/api/motivo/**").hasAuthority("ADMINISTRADOR")
+                        .requestMatchers( "/api/perfil/**").hasAuthority("ADMINISTRADOR")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
