@@ -111,7 +111,7 @@ public class ClienteController extends ApiController {
             @ApiResponse(code = 500, message = "Erro interno")
     }
     )
-    @PostMapping("/pesquisar/todos")
+    @GetMapping("/pesquisar/todos")
     public ResponseEntity<Object> pesquisarTodos() {
 
         try {
