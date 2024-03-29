@@ -27,6 +27,7 @@ public class TokenService {
                     .withIssuer("autenticacao-api")
                     .withSubject(colaborador.getCpf())
                     .withClaim("perfil", colaborador.getRoles())
+                    .withClaim("id", colaborador.getIdColaborador())
                     .withIssuedAt(new Date())
                     .withExpiresAt(dataExpiracao())
                     .sign(algorithm);
