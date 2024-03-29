@@ -27,6 +27,7 @@ public class AutenticacaoController {
     }
 
     @PostMapping("/colaborador/login")
+    @CrossOrigin(origins = "http://localhost:5173/")
     public ResponseEntity loginColaborador(@RequestBody @Valid AutenticacaoDTO data) {
         try {
             var usernamePassword = new UsernamePasswordAuthenticationToken(data.cpf(), data.password());
@@ -42,6 +43,7 @@ public class AutenticacaoController {
     }
 
     @PostMapping("/cliente/login")
+    @CrossOrigin(origins = "http://localhost:5173/")
     public ResponseEntity loginCliente(@RequestBody @Valid AutenticacaoDTO data) {
         try {
             return ResponseEntity.ok(clienteService.autenticaCliente(data.cpf(), data.password()));
