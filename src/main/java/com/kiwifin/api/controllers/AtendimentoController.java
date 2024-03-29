@@ -68,6 +68,24 @@ public class AtendimentoController extends ApiController{
         }
     }
 
+    @ApiOperation(value = "Lista todos atendimentos.", notes = "Lista todos atendimentos.", response = AtendimentoViewDTO.class, responseContainer = "List")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Lista de atendimentos encontrada"),
+            @ApiResponse(code = 204, message = "Nenhum atendimento encontrado"),
+            @ApiResponse(code = 400, message = "Chamada incorreta do serviço"),
+            @ApiResponse(code = 500, message = "Erro interno")
+    }
+    )
+    @GetMapping(value = "/listar/todos")
+    public ResponseEntity<Object> findAtendimentos() {
+        try {
+            return ResponseEntity.ok(service.buscarAtendimentos());
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @ApiOperation(value = "Busca atendimento por id.", notes = "Busca atendimentos por id.", response = AtendimentoViewDTO.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Atendimento encontrada"),

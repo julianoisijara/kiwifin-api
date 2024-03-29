@@ -58,6 +58,10 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
         return conversorService.entityList2DtoList(pesquisarAtendimentosPaginado(page, size));
     }
 
+    public List<AtendimentoViewDTO> buscarAtendimentos() {
+        return conversorService.entityList2DtoList(pesquisarTodosAtendimentos());
+    }
+
     public AtendimentoViewDTO buscarPorId(Long id) {
         return conversorService.entity2Dto(pesquisarPorId(id));
     }
@@ -85,7 +89,6 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
     public AtendimentoViewDTO atendimentoEmPendencia(AtendimentoUpdateDTO updateDTO) {
         return conversorService.entity2Dto(questionamentoEmpresa(updateDTO));
     }
-
 
     public AtendimentoViewDTO atendimentoRespostaPendencia(AtendimentoUpdateDTO updateDTO) {
         return conversorService.entity2Dto(respostaQuestionamento(updateDTO));
@@ -116,6 +119,10 @@ public class AtendimentoService extends GenericDataService<Atendimento, Long, At
 
         PageRequest pageRequest = PageRequest.of(page, size);
         return repository.findByAtendimentosPaginado(pageRequest);
+    }
+
+    public List<Atendimento> pesquisarTodosAtendimentos() {
+        return repository.findAll();
     }
 
 
